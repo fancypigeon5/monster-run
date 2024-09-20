@@ -38,17 +38,17 @@
         </main>
 
     {% else %}
-        <main class="h-100">
-            <div class="container w-75 h-50 border rounded p-5">
+        <main>
+            <div class="container border rounded p-5 login-register-container">
                 <div class="row">
                     <span class="col"></span>
-                    <a href="{% url 'account_login' %}" class="col-auto btn btn-outline-primary mx-auto">Log In!</a>
+                    <a href="{% url 'account_login' %}" class="col-auto btn btn-outline-primary btn-lg mx-auto">Log In!</a>
                     <span class="col"></span>
                 </div>
-                <span class="row align-items-center"><hr class="col m-0"><h1 class="col-auto text-center"> or </h1><hr class="col m-0"></span>
+                <span class="row align-items-center"><hr class="col m-0"><h3 class="col-auto text-center"> or </h3><hr class="col m-0"></span>
                 <div class="row">
                     <span class="col"></span>
-                    <a href="{% url 'account_signup' %}" class="col-auto btn btn-primary mx-auto">Register!</a>
+                    <a href="{% url 'account_signup' %}" class="col-auto btn btn-primary btn-lg mx-auto">Register!</a>
                     <span class="col"></span>
                 </div>
             </div>
