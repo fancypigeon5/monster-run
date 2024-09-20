@@ -1,3 +1,5 @@
+{% load static %}
+
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
@@ -8,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Monster Run</title>
 </head>
 <body>
@@ -24,17 +27,9 @@
                 </ul>
             </nav>
             <div class="col-md-3 text-end">
-                <a type="button" href="{% url 'account_logout' %}" class="btn btn-outline-primary me-2">Log Out</a>
+                <a href="{% url 'account_logout' %}" class="btn btn-outline-primary me-2">Log Out</a>
             </div>
         </header>
-        <!-- <nav class="d-flex justify-content-center py-3">
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a class="nav-link" href="#">Monster</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Run History</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Fight</a></li>
-            </ul>
-        </nav>
-        <a href="{% url 'account_logout' %}">Logout</a> -->
         <main>
         
             {% block content %}
@@ -43,8 +38,21 @@
         </main>
 
     {% else %}
-        <a href="{% url 'account_login' %}">Log In!</a>
-        <a href="{% url 'account_signup' %}">Register!</a>
+        <main class="h-100">
+            <div class="container w-75 h-50 border rounded p-5">
+                <div class="row">
+                    <span class="col"></span>
+                    <a href="{% url 'account_login' %}" class="col-auto btn btn-outline-primary mx-auto">Log In!</a>
+                    <span class="col"></span>
+                </div>
+                <span class="row align-items-center"><hr class="col m-0"><h1 class="col-auto text-center"> or </h1><hr class="col m-0"></span>
+                <div class="row">
+                    <span class="col"></span>
+                    <a href="{% url 'account_signup' %}" class="col-auto btn btn-primary mx-auto">Register!</a>
+                    <span class="col"></span>
+                </div>
+            </div>
+        </main>
     {% endif %}
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
