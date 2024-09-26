@@ -40,6 +40,11 @@
     {% else %}
         <main>
             <div class="container border rounded p-5 login-register-container">
+                <div class="row mb-2">
+                    <span class="col"></span>
+                    <h2 class="col-auto text-center">You need to be logged in ...</h2>
+                    <span class="col"></span>
+                </div>
                 <div class="row">
                     <span class="col"></span>
                     <a href="{% url 'account_login' %}" class="col-auto btn btn-outline-primary btn-lg mx-auto">Log In!</a>
