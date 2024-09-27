@@ -1,5 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
+{% block styles %}
+.monster-color {
+    fill: {{ monster.color }}
+}
+{% endblock %}
 
 {% block content %}
-<h1> Hello World </h1>
+<h1> monster is {{ monster.name }} </h1>
+<h2>Health: {{ monster.health }}</h2>
+<h2>Damage: {{monster.damage }}</h2>
+<div>
+    {{ monster.type.type_svg | safe }}
+</div>
+
 {% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form id="monsterForm" method="post"
+    style="margin-top: 1.3em;">
+    {{ monster_form | crispy }}
+    {% csrf_token %}
+    <button id="submitButton" type="submit"
+        class="btn btn-signup btn-lg">Submit</button>
+</form>
+{% endblock %}
