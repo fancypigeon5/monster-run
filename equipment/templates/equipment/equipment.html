@@ -4,18 +4,37 @@
 {% endblock %}
 
 {% block content %}
+<h1>Equipped equipment:</h1>
+<ul>
+    {% for equipment in equipments %}
+    {% if equipment.monster %}
+    <li>
+        <span>equipped to {{ equipment.monster.name }}: </span>
+        {{ equipment.type.equipment_svg | safe }}
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
 <h1>Owned equipment:</h1>
 <ul>
     {% for equipment in equipments %}
-    {% if equipment.unlocked %}
+    {% if equipment.unlocked and not equipment.monster %}
+    <li>{{ equipment.type.equipment_svg | safe }}</li>
+    {% endif %}
+    {% endfor %}
+</ul>
+<h1>Unlocking:</h1>
+<ul>
+    {% for equipment in equipments %}
+    {% if not equipment.unlocked %}
     <li>{{ equipment.type.equipment_svg | safe }}</li>
     {% endif %}
     {% endfor %}
 </ul>
 <h1>Not owned equipment:</h1>
 <ul>
-    {% for eq in equipment_types %}
-    <li>{{ eq.equipment_svg | safe }}</li>
+    {% for equipment_type in equipment_types %}
+    <li><a href="{% url 'equipment_create' equipment_type.id %}">{{ equipment_type.equipment_svg | safe }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %}
