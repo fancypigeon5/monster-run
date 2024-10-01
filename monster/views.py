@@ -13,7 +13,7 @@ def monster(request):
             return render(
                 request,
                 "monster/monster.html",
-                {"monster": monster},
+                {"monster": monster,},
             ) 
     else:
         return render(

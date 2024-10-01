@@ -4,5 +4,18 @@
 {% endblock %}
 
 {% block content %}
-<h1>here is where the equipment wil be displayed</h1>
+<h1>Owned equipment:</h1>
+<ul>
+    {% for equipment in equipments %}
+    {% if equipment.unlocked %}
+    <li>{{ equipment.type.equipment_svg | safe }}</li>
+    {% endif %}
+    {% endfor %}
+</ul>
+<h1>Not owned equipment:</h1>
+<ul>
+    {% for eq in equipment_types %}
+    <li>{{ eq.equipment_svg | safe }}</li>
+    {% endfor %}
+</ul>
 {% endblock %}

@@ -26,7 +26,7 @@ class Equipment(models.Model):
 
     def __str__(self):
         if self.monster:
-            displaystring =  f"{self.owner.first_name}'s {self.type.name} equipped to {self.monster.name}"
+            displaystring =  f"{self.owner.username}'s {self.type.name} equipped to {self.monster.name}"
         else:
-            displaystring = f"{self.owner.first_name}'s {self.type.name} not equipped"
+            displaystring = f"{self.owner.username}'s {self.type.name} not equipped"
         return displaystring
