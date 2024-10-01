@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Monster, MonsterType
 from .forms import MonsterForm
+from equipment.models import Equipment
 
 # Create your views here.
 
@@ -10,10 +11,22 @@ def monster(request):
         if monster is None:
             return redirect("create monster")
         else:
+            equipped = monster.equipped.all()
+            health = monster.type.base_max_health
+            damage = monster.type.base_damage
+            for item in equipped:
+                health += item.type.benefit_health
+                damage += item.type.benefit_damage
+            monster.health = health
+            monster.damage = damage
+            monster.save()
             return render(
                 request,
                 "monster/monster.html",
-                {"monster": monster,},
+                {
+                    "monster": monster,
+                    "equipped": equipped,    
+                },
             ) 
     else:
         return render(

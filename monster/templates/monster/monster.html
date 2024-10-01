@@ -13,5 +13,8 @@
 <div class="">
     {{ monster.type.type_svg | safe }}
 </div>
+{% for equipment in equipped %}
+{{ equipment.type.equipment_svg | safe }}
+{% endfor %}
 
 {% endblock %}
