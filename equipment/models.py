@@ -1,4 +1,6 @@
 from django.db import models
+from monster.models import Monster
+from django.contrib.auth.models import User
 
 CATEGORIES = ((0, 'Armour'), (1, 'Weapon'))
 
@@ -13,3 +15,18 @@ class EquipmentType(models.Model):
 
     def __str__(self):
         return f"{self.name} | health: +{self.benefit_health}, damage: +{self.benefit_damage}"
+
+class Equipment(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="equipments")
+    type = models.ForeignKey(EquipmentType, on_delete=models.CASCADE, related_name='equipment_type')
+    unlocked = models.BooleanField(default=False)
+    Progress = models.IntegerField()
+    monster = models.ForeignKey(Monster, on_delete=models.SET_NULL, null=True, default=null, related_name='equipped')
+    created_on = models.TimeField(auto_now_add=True)
+
+    def __str__(self):
+        if self.monster:
+            displaystring =  f"{self.owner.first_name}'s {self.type.name} equipped to {self.monster.name}"
+        else:
+            displaystring = f"{self.owner.first_name}'s {self.type.name} not equipped"
+        return displaystring
