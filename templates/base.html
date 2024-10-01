@@ -1,6 +1,7 @@
 {% load static %}
 
-{% url 'home' as home%}
+{% url 'home' as home %}
+{% url 'equipment' as equipment %}
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
@@ -30,7 +31,7 @@
                     <li><a href="{% url 'home' %}" class="nav-link px-2 link-dark">Monster</a></li>
                     <li><a href="#" class="nav-link px-2 link-dark">Run History</a></li>
                     <li><a href="#" class="nav-link px-2 link-dark">Fight</a></li>
-                    <li><a href="#" class="nav-link px-2 link-dark">Equipment</a></li>
+                    <li><a href="{% url 'equipment' %}" class="nav-link px-2 link-dark">Equipment</a></li>
                 </ul>
             </nav>
             <div class="col-md-3 text-end">
