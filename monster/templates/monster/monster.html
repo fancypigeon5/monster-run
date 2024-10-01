@@ -7,10 +7,10 @@
 {% endblock %}
 
 {% block content %}
-<h1> monster is {{ monster.name }} </h1>
+<h1>Monster is {{ monster.name }} </h1>
 <h2>Health: {{ monster.health }}</h2>
 <h2>Damage: {{monster.damage }}</h2>
-<div>
+<div class="">
     {{ monster.type.type_svg | safe }}
 </div>
 

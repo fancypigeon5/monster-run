@@ -10,7 +10,7 @@ class MonsterType(models.Model):
     created_on = models.TimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name} | health: {self.base_max_health}, damage: {self.base_damage}"
 
 class Monster(models.Model):
     name = models.CharField(max_length=200)
