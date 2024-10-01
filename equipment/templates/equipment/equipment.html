@@ -15,11 +15,11 @@
     {% endif %}
     {% endfor %}
 </ul>
-<h1>Owned equipment:</h1>
+<h1>Owned equipments:</h1>
 <ul>
     {% for equipment in equipments %}
     {% if equipment.unlocked and not equipment.monster %}
-    <li>{{ equipment.type.equipment_svg | safe }}</li>
+    <li class="equipable" equipment_id="{{ equipment.id }}">{{ equipment.type.equipment_svg | safe }}</li>
     {% endif %}
     {% endfor %}
 </ul>
@@ -37,4 +37,34 @@
     <li><a href="{% url 'equipment_create' equipment_type.id %}">{{ equipment_type.equipment_svg | safe }}</a></li>
     {% endfor %}
 </ul>
+
+<div class="modal fade" id="equipModal" tabindex="-1"
+  aria-labelledby="equipModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="equipModalLabel">Equip Item?</h5>
+                <button type="button" class="btn-close"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id='equipForm' method="post">
+                <div class="modal-body">
+                    {{ equip_form | safe }}
+                    {% csrf_token %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close</button>
+                    <button id="equipConfirm" type="submit" class="btn
+                    btn-danger">Equip</button> 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extras %}
+<script src="{% static 'js/equipment.js' %}"></script>
 {% endblock %}
