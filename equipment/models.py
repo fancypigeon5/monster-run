@@ -21,7 +21,7 @@ class Equipment(models.Model):
     type = models.ForeignKey(EquipmentType, on_delete=models.CASCADE, related_name='equipment_type')
     unlocked = models.BooleanField(default=False)
     Progress = models.IntegerField()
-    monster = models.ForeignKey(Monster, on_delete=models.SET_NULL, null=True, default=null, related_name='equipped')
+    monster = models.ForeignKey(Monster, on_delete=models.SET_NULL, blank=True, null=True, default=None, related_name='equipped')
     created_on = models.TimeField(auto_now_add=True)
 
     def __str__(self):
