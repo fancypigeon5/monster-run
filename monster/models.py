@@ -18,6 +18,7 @@ class Monster(models.Model):
     type = models.ForeignKey(MonsterType, on_delete=models.CASCADE, related_name="monster_type")
     color = models.CharField(max_length=7, default='#f60000')
     health = models.IntegerField()
+    max_health = models.IntegerField()
     damage = models.IntegerField()
     created_on = models.TimeField(auto_now_add=True)
 

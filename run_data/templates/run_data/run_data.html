@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1 class="btn btn-danger" id="enterRun">Enter a run!</h1>
+<div class="modal fade" id="runModal" tabindex="-1"
+  aria-labelledby="runModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="runModalLabel">Enter your run!</h5>
+                <button type="button" class="btn-close"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="runFormChoice">
+                <div class="modal-body" id="unlockRunFormBody">
+                    What do you want your run to do?
+                </div>
+                <div class="modal-footer">
+                    <div id="unlockRunButton" class="btn
+                    btn-danger">Unlocking equipment</div> 
+                    <div id="recoverRunButton" class="btn
+                    btn-danger">Recover monster health</div> 
+                </div>
+            </div>
+            <form class="d-none" id='unlockRunForm' action='enterrun/unlock' method="post">
+                <div class="modal-body">
+                    {{ unlock_run_form | crispy }}
+                    {% csrf_token %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close</button>
+                    <button id="unlockRunConfirm" type="submit" class="btn
+                    btn-danger">Submit Run</button> 
+                </div>
+            </form>
+            <form class="d-none" id='recoverRunForm' action='enterrun/recover' method="post">
+                <div class="modal-body" id="recoverRunFormBody">
+                    {{ recover_run_form | crispy }}
+                    {% csrf_token %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close</button>
+                    <button id="recoverRunConfirm" type="submit" class="btn
+                    btn-danger">Submit Run</button> 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extras %}
+<script src="{% static 'js/run_data.js' %}"></script>
+{% endblock %}

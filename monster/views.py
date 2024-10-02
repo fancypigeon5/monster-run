@@ -12,12 +12,14 @@ def monster(request):
             return redirect("create monster")
         else:
             equipped = monster.equipped.all()
-            health = monster.type.base_max_health
+            max_health = monster.type.base_max_health
             damage = monster.type.base_damage
             for item in equipped:
-                health += item.type.benefit_health
+                max_health += item.type.benefit_health
                 damage += item.type.benefit_damage
-            monster.health = health
+            if monster.health == monster.max_health:
+                monster.health = max_health
+            monster.max_health = max_health
             monster.damage = damage
             monster.save()
             return render(
@@ -37,7 +39,6 @@ def monster(request):
 def create_monster(request):
     if request.method == "POST":
             monster_form = MonsterForm(data=request.POST)
-            print('Creating monster')
             monster_type = get_object_or_404(MonsterType, id=request.POST.get("type"))
             if monster_form.is_valid():
                 new_monster = monster_form.save(commit=False)
