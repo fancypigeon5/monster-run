@@ -4,6 +4,14 @@
 
 {% block content %}
 <h1 class="btn btn-danger" id="enterRun">Enter a run!</h1>
+
+{% for run in runs %}
+<div class="m-2">
+    <span>{{ run.distance }} on {{ run.created_on }} |  </span><span><a href="deleterun/{{ run.id }}">X</a></span>
+</div>
+{% endfor %}
+
+
 <div class="modal fade" id="runModal" tabindex="-1"
   aria-labelledby="runModalLabel" aria-hidden="true">
     <div class="modal-dialog">
