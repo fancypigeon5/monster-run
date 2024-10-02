@@ -20,7 +20,7 @@ class Equipment(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="equipments")
     type = models.ForeignKey(EquipmentType, on_delete=models.CASCADE, related_name='equipment_type')
     unlocked = models.BooleanField(default=False)
-    Progress = models.IntegerField(default=0)
+    progress = models.IntegerField(default=0)
     monster = models.ForeignKey(Monster, on_delete=models.SET_NULL, blank=True, null=True, default=None, related_name='equipped')
     created_on = models.TimeField(auto_now_add=True)
 

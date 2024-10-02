@@ -48,7 +48,6 @@ def equip_to(request, equipment_id):
         monster = get_object_or_404(Monster, pk=request.POST['monster'])
         equipment = get_object_or_404(Equipment, pk=equipment_id)
         equipped = monster.equipped.filter(type__category=equipment.type.category)
-        print(equipped)
         equipped_count = equipped.count()
         if equipped_count >= 1:
             for item in equipped:
@@ -61,4 +60,30 @@ def equip_to(request, equipment_id):
             'Item equipped'
         )
 
+    return HttpResponseRedirect(reverse('equipment'))
+
+def unequip(request, equipment_id):
+    equipment = get_object_or_404(Equipment, pk=equipment_id)
+    equipment.monster = None
+    equipment.save()
+    messages.add_message(
+            request, messages.SUCCESS,
+            'Item unequipped'
+        )
+    return HttpResponseRedirect(reverse('equipment'))
+
+def unlock(request, equipment_id):
+    equipment = get_object_or_404(Equipment, pk=equipment_id)
+    if equipment.unlocked:
+        messages.add_message(
+                request, messages.ERROR,
+                'Item already unlocked'
+            )
+    else:
+        equipment.unlocked = True
+        equipment.save()
+        messages.add_message(
+                request, messages.SUCCESS,
+                'New equipment unlocked'
+            )
     return HttpResponseRedirect(reverse('equipment'))

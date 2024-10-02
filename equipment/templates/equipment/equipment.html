@@ -8,9 +8,9 @@
 <ul>
     {% for equipment in equipments %}
     {% if equipment.monster %}
-    <li>
+    <li class="equipped" equipment_id="{{ equipment.id }}">
         <span>equipped to {{ equipment.monster.name }}: </span>
-        {{ equipment.type.equipment_svg | safe }}
+        <span >{{ equipment.type.equipment_svg | safe }}</span>
     </li>
     {% endif %}
     {% endfor %}
@@ -27,7 +27,13 @@
 <ul>
     {% for equipment in equipments %}
     {% if not equipment.unlocked %}
-    <li>{{ equipment.type.equipment_svg | safe }}</li>
+    <li>
+        {{ equipment.type.equipment_svg | safe }} | status: {{ equipment.progress }}/{{ equipment.type.distance_needed }}
+        {% if equipment.progress >= equipment.type.distance_needed %}
+        <a id="umlockButton" href="unlock/{{ equipment.id }}" class="btn
+          btn-danger">Unlock</a>
+        {% endif %}
+    </li>
     {% endif %}
     {% endfor %}
 </ul>
@@ -49,7 +55,7 @@
                     data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id='equipForm' method="post">
-                <div class="modal-body">
+                <div class="modal-body" id="equipFormBody">
                     {{ equip_form | safe }}
                     {% csrf_token %}
                 </div>
