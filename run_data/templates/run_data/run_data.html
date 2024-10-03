@@ -12,7 +12,7 @@
             recovering {{ run.monster }}
         {% endif %}
         {% if run.equipment %}
-            unlocking {{ run.equipment }}
+            unlocking {{ run.equipment.type.name }}
         {% endif %}    
         |  </span><span><a href="deleterun/{{ run.id }}">X</a></span>
 </div>
