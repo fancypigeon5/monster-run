@@ -26,20 +26,13 @@ def equipment(request):
     )
 
 def equipment_create(request, equipment_type_id):
-    equipments = Equipment.objects.filter(owner=request.user, unlocked=False).count()
-    if equipments >= 1:
-        messages.add_message(
-                request, messages.ERROR,
-                'You are already unlocking an equipment'
-            )
-    else:
-        equipment_type = get_object_or_404(EquipmentType, id=equipment_type_id)
-        new_equipment = Equipment(owner=request.user, type=equipment_type)
-        new_equipment.save()
-        messages.add_message(
-                request, messages.SUCCESS,
-                'Start running to unlock your new equipment'
-            )
+    equipment_type = get_object_or_404(EquipmentType, id=equipment_type_id)
+    new_equipment = Equipment(owner=request.user, type=equipment_type)
+    new_equipment.save()
+    messages.add_message(
+            request, messages.SUCCESS,
+            'Start running to unlock your new equipment'
+        )
     return HttpResponseRedirect(reverse('equipment'))
 
 def equip_to(request, equipment_id):

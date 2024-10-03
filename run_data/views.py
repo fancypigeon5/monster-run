@@ -59,6 +59,20 @@ def enter_run(request, choice):
 
 def delete_run(request, run_data_id):
     run_data = get_object_or_404(RunData, pk=run_data_id)
+    if run_data.monster:
+        monster = run_data.monster
+        monster.health -= (run_data.distance*10)
+        if monster.health <= 0:
+            monster.health = 0
+        monster.save()
+    elif run_data.equipment:
+        equipment = run_data.equipment
+        equipment.progress -= run_data.distance
+        if equipment.progress < equipment.type.distance_needed:
+            if equipment.monster:
+                equipment.monster = None
+            equipment.unlocked = False
+        equipment.save()
     run_data.delete()
     messages.add_message(
         request, messages.SUCCESS,

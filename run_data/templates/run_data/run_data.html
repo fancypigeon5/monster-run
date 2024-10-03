@@ -6,8 +6,15 @@
 <h1 class="btn btn-danger" id="enterRun">Enter a run!</h1>
 
 {% for run in runs %}
-<div class="m-2">
-    <span>{{ run.distance }} on {{ run.created_on }} |  </span><span><a href="deleterun/{{ run.id }}">X</a></span>
+<div class="m-2 border rounded">
+    <span>{{ run.distance }} on {{ run.created_on }} for 
+        {% if run.monster %}
+            recovering {{ run.monster }}
+        {% endif %}
+        {% if run.equipment %}
+            unlocking {{ run.equipment }}
+        {% endif %}    
+        |  </span><span><a href="deleterun/{{ run.id }}">X</a></span>
 </div>
 {% endfor %}
 
