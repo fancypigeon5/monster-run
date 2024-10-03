@@ -12,6 +12,10 @@ class MonsterType(models.Model):
     def __str__(self):
         return f"{self.name} | health: {self.base_max_health}, damage: {self.base_damage}"
 
+class ExcludeEnemyMonsters(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().exclude(name='Enemy')
+
 class Monster(models.Model):
     name = models.CharField(max_length=200)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="monsters")
@@ -21,6 +25,9 @@ class Monster(models.Model):
     max_health = models.IntegerField()
     damage = models.IntegerField()
     created_on = models.TimeField(auto_now_add=True)
+    
+    objects = ExcludeEnemyMonsters()
+    all_objects = models.Manager()
 
     def __str__(self):
         return f"{self.name} from {self.owner}"

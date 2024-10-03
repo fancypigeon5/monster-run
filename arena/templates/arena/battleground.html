@@ -1,16 +1,38 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block styles %}
 .{{ monster.name }} .monster-color {
     fill: {{ monster.color }}
+}
+.{{ enemy.name }} .monster-color {
+    fill: {{ enemy.color }}
 }
 {% endblock %}
 
 {% block content %}
 <h1>Battleground</h1>
+{% if turn == 0 %}
+<h2>Your turn</h2>
+<h3>click the box to roll your damage</h3>
+<div style="width: 100px; height: 100px;" class="border d-flex justify-content-center align-items-center" id="damageRoll" max_damage="{{ monster.damage }}">
+    <h1 id="rollBox">{{ monster.damage }}</h1>
+</div>
+{% endif %}
 <h3>{{ monster.name }}</h3>
 <div class="{{ monster.name }}">
     {{ monster.type.type_svg | safe }}
 </div>
+<div class="{{ enemy.name }}">
+    <h3>{{ enemy.color }}</h3>
+    <h3>health: {{ enemy.health }}</h3>
+    <h3>damage: {{ enemy.damage }}</h3>
+    {{ enemy.type.type_svg | safe }}
+    {% for equipment in equipments %}
+        {{ equipment.equipment_svg | safe }}
+    {% endfor %}
+</div>
+{% endblock %}
 
+{% block extras %}
+<script src="{% static 'js/battle.js' %}"></script>
 {% endblock %}
