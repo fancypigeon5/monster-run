@@ -15,7 +15,7 @@ class MonsterType(models.Model):
 class Monster(models.Model):
     name = models.CharField(max_length=200)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="monsters")
-    type = models.ForeignKey(MonsterType, on_delete=models.CASCADE, related_name="monster_type")
+    type = models.ForeignKey(MonsterType, on_delete=models.CASCADE, related_name="monsters")
     color = models.CharField(max_length=7, default='#f60000')
     health = models.IntegerField()
     max_health = models.IntegerField()

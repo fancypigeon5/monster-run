@@ -38,8 +38,8 @@ def equipment_create(request, equipment_type_id):
 def equip_to(request, equipment_id):
     
     if request.method == 'POST':
-        monster = get_object_or_404(Monster, pk=request.POST['monster'])
-        equipment = get_object_or_404(Equipment, pk=equipment_id)
+        monster = get_object_or_404(Monster, pk=request.POST['monster'], owner=request.user)
+        equipment = get_object_or_404(Equipment, pk=equipment_id, owner=request.user)
         equipped = monster.equipped.filter(type__category=equipment.type.category)
         equipped_count = equipped.count()
         if equipped_count >= 1:
@@ -56,7 +56,7 @@ def equip_to(request, equipment_id):
     return HttpResponseRedirect(reverse('equipment'))
 
 def unequip(request, equipment_id):
-    equipment = get_object_or_404(Equipment, pk=equipment_id)
+    equipment = get_object_or_404(Equipment, pk=equipment_id, owner=request.user)
     equipment.monster = None
     equipment.save()
     messages.add_message(
@@ -66,7 +66,7 @@ def unequip(request, equipment_id):
     return HttpResponseRedirect(reverse('equipment'))
 
 def unlock(request, equipment_id):
-    equipment = get_object_or_404(Equipment, pk=equipment_id)
+    equipment = get_object_or_404(Equipment, pk=equipment_id, owner=request.user)
     if equipment.unlocked:
         messages.add_message(
                 request, messages.ERROR,
