@@ -1,20 +1,26 @@
 {% extends "base.html" %}
 {% load static %}
 {% block styles %}
-.monster-color {
+{% for monster in monsters %}
+.{{ monster.name }} .monster-color {
     fill: {{ monster.color }}
 }
+{% endfor %}
 {% endblock %}
 
 {% block content %}
-<h1>Monster is {{ monster.name }} </h1>
-<h2>Health: {{ monster.health }}</h2>
-<h2>Damage: {{monster.damage }}</h2>
-<div class="">
-    {{ monster.type.type_svg | safe }}
-</div>
-{% for equipment in equipped %}
-{{ equipment.type.equipment_svg | safe }}
+{% for monster in monsters %}
+    <h1>Monster is {{ monster.name }} </h1>
+    <h2>Health: {{ monster.health }}</h2>
+    <h2>Damage: {{monster.damage }}</h2>
+    <div class="{{ monster.name }}">
+        {{ monster.type.type_svg | safe }}
+    </div>
+    {% for equipment in equipped %}
+    {% if equipment.monster.id == monster.id %}
+        {{ equipment.type.equipment_svg | safe }}
+    {% endif %}
+    {% endfor %}
 {% endfor %}
 
 {% endblock %}
