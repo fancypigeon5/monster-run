@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<a id="battleButton"><h1>Battle</h1></a>
+<h1>Scoreboard</h1>
+
+<div class="modal fade" id="battleModal" tabindex="-1"
+  aria-labelledby="battleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="battleModalLabel">battle Item?</h5>
+                <button type="button" class="btn-close"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id='battleForm' action="battle/" method="post">
+                <div class="modal-body" id="battleFormBody">
+                    <select name="monster" id="monsters_choice">
+                        {% for monster in monsters %}
+                        <option value="{{ monster.id }}">{{ monster.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% csrf_token %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close</button>
+                    <button id="battleConfirm" type="submit" class="btn
+                    btn-danger">battle</button> 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extras %}
+<script src="{% static 'js/arena.js' %}"></script>
+{% endblock %}

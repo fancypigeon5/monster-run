@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block styles %}
+.{{ monster.name }} .monster-color {
+    fill: {{ monster.color }}
+}
+{% endblock %}
+
+{% block content %}
+<h1>Battleground</h1>
+<h3>{{ monster.name }}</h3>
+<div class="{{ monster.name }}">
+    {{ monster.type.type_svg | safe }}
+</div>
+
+{% endblock %}
