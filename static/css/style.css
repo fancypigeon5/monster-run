@@ -32,3 +32,21 @@
     width: 200px;
     height: 300px;
 }
+
+.monsterImage svg {
+    height: 250px;
+}
+
+.equipment svg {
+    height: 100%;
+    width: 100%;
+}
+
+.equipment {
+    height: 50px;
+    width: 50px;
+}
+
+ul {
+    list-style: none;
+}

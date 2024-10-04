@@ -9,18 +9,23 @@
 {% endblock %}
 
 {% block content %}
+<div class="d-flex flex-wrap">
 {% for monster in monsters %}
-    <h1>Monster is {{ monster.name }} </h1>
-    <h2>Health: {{ monster.health }}</h2>
-    <h2>Damage: {{monster.damage }}</h2>
-    <div class="{{ monster.name }}">
-        {{ monster.type.type_svg | safe }}
+<div class="card m-3 {{ monster.name }}" style="width: 18rem;">
+    <div class="monsterImage card-img-top p-1 d-flex justify-content-center align-items-center"> {{ monster.type.type_svg | safe }} </div>
+    <div class="card-body">
+        <h5 class="card-title">Monster is {{ monster.name }}</h5>
+        <h6>Health: {{ monster.health }}</h6>
+        <h6>Damage: {{monster.damage }}</h6>
+        <div class="d-flex justify-content-around">
+        {% for equipment in equipped %}
+        {% if equipment.monster.id == monster.id %}
+            <div class="equipment">{{ equipment.type.equipment_svg | safe }}</div>
+        {% endif %}
+        {% endfor %}
+        </div>
     </div>
-    {% for equipment in equipped %}
-    {% if equipment.monster.id == monster.id %}
-        {{ equipment.type.equipment_svg | safe }}
-    {% endif %}
-    {% endfor %}
+</div>
 {% endfor %}
-
+</div>
 {% endblock %}

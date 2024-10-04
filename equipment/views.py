@@ -8,17 +8,15 @@ from monster.models import Monster
 
 def equipment(request):
     equipments = Equipment.objects.filter(owner=request.user)
-    equipment_types_owned = []
-    for eq in equipments:
-        if eq.type.name not in equipment_types_owned:
-            equipment_types_owned.append(eq.type.name)
-    equipment_types = EquipmentType.objects.exclude(name__in=equipment_types_owned)
+    equipment_types = EquipmentType.objects.all()
     equip_form = EquipForm()
     equip_form.fields['monster'].queryset = Monster.objects.filter(owner=request.user)
+    monsters = Monster.objects.filter(owner=request.user).all
     return render(
         request,
         'equipment/equipment.html',
-        {
+        {   
+            'monsters': monsters,
             'equipments': equipments,
             'equipment_types': equipment_types,
             'equip_form': equip_form,

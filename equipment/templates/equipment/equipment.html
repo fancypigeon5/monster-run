@@ -4,45 +4,68 @@
 {% endblock %}
 
 {% block content %}
-<h1>Equipped equipment:</h1>
-<ul>
-    {% for equipment in equipments %}
-    {% if equipment.monster %}
-    <li class="equipped" equipment_id="{{ equipment.id }}">
-        <span>equipped to {{ equipment.monster.name }}: </span>
-        <span >{{ equipment.type.equipment_svg | safe }}</span>
-    </li>
-    {% endif %}
-    {% endfor %}
-</ul>
-<h1>Owned equipments:</h1>
-<ul>
-    {% for equipment in equipments %}
-    {% if equipment.unlocked and not equipment.monster %}
-    <li class="equipable" equipment_id="{{ equipment.id }}">{{ equipment.type.equipment_svg | safe }}</li>
-    {% endif %}
-    {% endfor %}
-</ul>
-<h1>Unlocking:</h1>
-<ul>
-    {% for equipment in equipments %}
-    {% if not equipment.unlocked %}
-    <li>
-        {{ equipment.type.equipment_svg | safe }} | status: {{ equipment.progress }}/{{ equipment.type.distance_needed }}
-        {% if equipment.progress >= equipment.type.distance_needed %}
-        <a id="umlockButton" href="unlock/{{ equipment.id }}" class="btn
-          btn-danger">Unlock</a>
-        {% endif %}
-    </li>
-    {% endif %}
-    {% endfor %}
-</ul>
-<h1>Not owned equipment:</h1>
-<ul>
-    {% for equipment_type in equipment_types %}
-    <li><a href="{% url 'equipment_create' equipment_type.id %}">{{ equipment_type.equipment_svg | safe }}</a></li>
-    {% endfor %}
-</ul>
+<div class="container">
+    <div class="row">
+        <div class="col-6 container border">
+            <h2>Owned equipments:</h2>
+            <div class="row">
+                <div class="col">
+                    <h3>Equipped:</h3>
+                    {% for monster in monsters %}
+                    <li> <h5>{{ monster.name }}:</h5>
+                        <ul>
+                            {% for equipment in equipments %}
+                            {% if equipment.monster == monster %}
+                            <li class="equipped equipment" equipment_id="{{ equipment.id }}">
+                                {{ equipment.type.equipment_svg | safe }}
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    <h3>Not equipqed:</h3>
+                    <ul>
+                        {% for equipment in equipments %}
+                        {% if equipment.unlocked and not equipment.monster %}
+                        <li class="equipable equipment" equipment_id="{{ equipment.id }}">
+                            {{ equipment.type.equipment_svg | safe }}
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>    
+        </div>
+        <div class="col-3 border">
+            <h2>Unlocking:</h2>
+            <ul>
+                {% for equipment in equipments %}
+                {% if not equipment.unlocked %}
+                <li class="equipment">
+                    {{ equipment.type.equipment_svg | safe }} | status: {{ equipment.progress }}/{{ equipment.type.distance_needed }}
+                    {% if equipment.progress >= equipment.type.distance_needed %}
+                    <a id="umlockButton" href="unlock/{{ equipment.id }}" class="btn
+                        btn-danger">Unlock</a>
+                    {% endif %}
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-3 border">
+            <h2>Not owned equipment:</h2>
+            <ul>
+                {% for equipment_type in equipment_types %}
+                <li class="equipment"><a href="{% url 'equipment_create' equipment_type.id %}" >{{ equipment_type.equipment_svg | safe }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>    
+</div>
+
 
 <div class="modal fade" id="equipModal" tabindex="-1"
   aria-labelledby="equipModalLabel" aria-hidden="true">
