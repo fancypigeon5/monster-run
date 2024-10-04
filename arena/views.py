@@ -70,7 +70,9 @@ def strike(request, turn):
             enemy.health -= damage
             enemy.save()
             if enemy.health <= 0:
-                return redirect('won')
+                monster.score += monster.health
+                monster.save()
+                return redirect('won', monster.health)
             turn = 'enemy'
         return render(
             request,
@@ -99,11 +101,22 @@ def lost(request):
         }
     )
 
-def won(request):
+def won(request, points):
     monsters = Monster.objects.filter(owner=request.user)
     return render(
         request,
         'arena/won.html',
+        {
+            'points': points,
+            'monsters': monsters,
+        }
+    )
+
+def scoreboard(request):
+    monsters = Monster.objects.order_by('-score')
+    return render(
+        request,
+        'arena/scoreboard.html',
         {
             'monsters': monsters,
         }

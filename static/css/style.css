@@ -27,3 +27,8 @@
     transform: translate(-50%, -50%);
     z-index: 10;
 }
+
+.monsterListing {
+    width: 200px;
+    height: 300px;
+}

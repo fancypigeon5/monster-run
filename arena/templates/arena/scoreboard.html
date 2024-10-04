@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block styles %}
+
+.monsterImage svg {
+    height: 100px
+}
+
+{% for monster in monsters %}
+    .{{ monster.name }} .monster-color {
+        fill: {{ monster.color }}
+    }
+{% endfor %}
+{% endblock %}
+
+{% block content %}
+<h1>Battleground</h1>
+
+<ol class="">
+    {% for monster in monsters %}
+    <li class="{{ monster.name }} monsterListing">
+        <h3>{{ monster.name }} with {{ monster.score }} points</h3>
+        <div class="monsterImage">
+            {{ monster.type.type_svg | safe }}
+        </div>
+        {% for equipment in equipped %}
+            {{ equipment.type.equipment_svg | safe }}
+        {% endfor %}
+        <h3>Owner: {{ monster.owner.username }}</h3>
+    </li>
+    {% endfor %}
+</ol>
+
+{% endblock %}
