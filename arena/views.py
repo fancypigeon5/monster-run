@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse, get_object_or_404
+from django.shortcuts import render, reverse, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -18,7 +18,7 @@ def arena(request):
 
 def battle(request):
     if request.method == "POST":
-        monster = get_object_or_404(Monster, pk=request.POST['monster'])
+        monster = get_object_or_404(Monster, pk=request.POST['monster'], owner=request.user)
         enemy_monsters = Monster.all_objects.filter(owner=request.user, name='Enemy')
         for enemy_monster in enemy_monsters:
             enemy_monster.delete()
@@ -34,21 +34,77 @@ def battle(request):
                 enemy.damage += equipment_type.benefit_damage
                 enemy.save()
                 equipments.append(equipment_type)
-        turn = random.randint(0,1)
+        turn = random.choice(['enemy','you'])
+        equipped = monster.equipped.all()
         return render(
             request,
             'arena/battleground.html',
             {
                 'enemy': enemy,
                 'equipments': equipments,
+                'equipped': equipped,
                 'monster': monster,
                 'turn': turn,
             }
         )
-    else:
-        messages.add_message(
-                request, messages.ERROR,
-                'something went wrong'
-            )
-        return HttpResponseRedirect(reverse('arena'))
+    messages.add_message(
+            request, messages.ERROR,
+            'something went wrong'
+        )
+    return HttpResponseRedirect(reverse('arena'))
 
+def strike(request, turn):
+    if request.method == "POST":
+        monster = get_object_or_404(Monster, pk=request.POST['monster'], owner=request.user)
+        enemy = Monster.all_objects.filter(owner=request.user, pk=request.POST['enemy']).get()
+        equipments = request.POST['equipments']
+        equipped = monster.equipped.all()
+        damage = int(request.POST['damage'])
+        if turn == 'enemy':
+            monster.health -= damage
+            monster.save()
+            if monster.health <= 0:
+                return redirect('lost')
+            turn = 'you'
+        elif turn == 'you':
+            enemy.health -= damage
+            enemy.save()
+            if enemy.health <= 0:
+                return redirect('won')
+            turn = 'enemy'
+        return render(
+            request,
+            'arena/battleground.html',
+            {
+                'enemy': enemy,
+                'equipments': equipments,
+                'equipped': equipped,
+                'monster': monster,
+                'turn': turn,
+            }
+        )
+    messages.add_message(
+            request, messages.ERROR,
+            'something went wrong'
+        )
+    return HttpResponseRedirect(reverse('arena'))
+
+def lost(request):
+    monsters = Monster.objects.filter(owner=request.user)
+    return render(
+        request,
+        'arena/lost.html',
+        {
+            'monsters': monsters,
+        }
+    )
+
+def won(request):
+    monsters = Monster.objects.filter(owner=request.user)
+    return render(
+        request,
+        'arena/won.html',
+        {
+            'monsters': monsters,
+        }
+    )

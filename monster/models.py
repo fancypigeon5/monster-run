@@ -24,8 +24,9 @@ class Monster(models.Model):
     health = models.IntegerField()
     max_health = models.IntegerField()
     damage = models.IntegerField()
+    score = models.IntegerField(default=0)
     created_on = models.TimeField(auto_now_add=True)
-    
+
     objects = ExcludeEnemyMonsters()
     all_objects = models.Manager()
 
