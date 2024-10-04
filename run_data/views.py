@@ -26,7 +26,15 @@ def run(request):
 
 def enter_run(request, choice):
     if request.method == "POST":
+        monster = Monster.objects.filter(owner = request.user).exclude(health=F('max_health'))
+        equipment = Equipment.objects.filter(owner = request.user, unlocked=False)
         if choice == "unlock":
+            if equipment.first() is None:
+                messages.add_message(
+                    request, messages.ERROR,
+                    'Choose an equipment to unlock first'
+                )
+                return HttpResponseRedirect(reverse('run_data'))
             unlock_run_form = UnlockRunDataForm(data=request.POST)
             if unlock_run_form.is_valid():
                 new_run = unlock_run_form.save(commit=False)
@@ -40,6 +48,12 @@ def enter_run(request, choice):
                     'Progress added to equipment'
                 )
         elif choice == "recover":
+            if monsters.first() is None:
+                messages.add_message(
+                    request, messages.ERROR,
+                    'You have no monsters that are in need of recovery'
+                )
+                return HttpResponseRedirect(reverse('run_data'))
             recover_run_form = RecoverRunDataForm(data=request.POST)
             if recover_run_form.is_valid():
                 new_run = recover_run_form.save(commit=False)

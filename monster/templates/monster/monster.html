@@ -17,10 +17,21 @@
         <h5 class="card-title">Monster is {{ monster.name }}</h5>
         <h6>Health: {{ monster.health }}</h6>
         <h6>Damage: {{monster.damage }}</h6>
-        <div class="d-flex justify-content-around">
+        <div class="">
         {% for equipment in equipped %}
         {% if equipment.monster.id == monster.id %}
-            <div class="equipment">{{ equipment.type.equipment_svg | safe }}</div>
+        <div class="card mb-3 equipmentCard">
+            <div class="d-flex justify-content-start">
+                <div class="equipment equipmentImage">
+                    <div class="img-fluid rounded-start equipment">{{ equipment.type.equipment_svg | safe }}</div>
+                </div>
+                <div class="equipmentCardBody">
+                    <p>{{ equipment.type.name }}</p>
+                    <p><em>Health:</em> +{{equipment.type.benefit_health}}</p>
+                    <p><em>Damage:</em> +{{equipment.type.benefit_damage}}</p>
+                </div>
+            </div>
+        </div>
         {% endif %}
         {% endfor %}
         </div>

@@ -8,8 +8,8 @@ from equipment.models import Equipment
 
 @login_required
 def monster(request):
-    monsters = Monster.objects.filter(owner=request.user)
-    if monsters is None:
+    monsters = Monster.objects.filter(owner=request.user).all()
+    if monsters.first() is None:
         return redirect("create_monster")
     for monster in monsters:
         equipped = monster.equipped.all()
