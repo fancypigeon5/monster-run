@@ -1,15 +1,53 @@
 :root {
     box-sizing: border-box;
-    --equipment-field-color: rgb(255, 248, 211);
+    --background-color: #a6c8dc;
+    --primary-color: #4994b7;
+    --secondary-color: #CDDAFD;
+    --tertiary-color: #f0efeb;
+    --extra-color-1: #dcdca6;
+    --extra-color-2: #FFF1E6;
+    --extra-color-2: #FDE2E4;
+    --extra-color-2: #E2ECE9;
+    --extra-color-2: #BEE1E6;
 }
+
+
+/* *****************Scrollbar***************** */
+::-webkit-scrollbar {
+
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent; 
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(255, 0, 0); 
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+}
+
+/* *****************Basic styling***************** */
 
 body {
     height: 100vh;
+    width: 100%;
+    background-color: var(--background-color);
 }
 
 main {
-    height: 100vh;
-    width: 100vw;
+    width: 100%;
+    max-height: 90%;
+}
+
+.btn-primary {
+    color: black;
+    background-color: var(--secondary-color);
 }
 
 .login-register-container {
@@ -44,13 +82,43 @@ main {
 
 /* *****************Monsters styling***************** */
 
+.monster-card {
+    border: 5px solid var(--extra-color-1);
+    border-radius: 20px;
+    background-color: var(--primary-color);
+}
+
+.card-body .equipped-container {
+    width: 100%;
+    font-size: x-small;
+}
+
+/* *****************Create monsters styling***************** */
+
+#monsterForm {
+    position: fixed;
+    border-radius: 20px;
+    background-color: var(--primary-color);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    width: 40vw;
+
+}
+
+#monsterForm h1 {
+    margin-bottom: 20px;
+}
+
 .monsterListing {
     width: 200px;
     height: 300px;
 }
 
 .monsterImage svg {
-    height: 250px;
+    width: 100%;
+    height: 100%;
 }
 
 /* *****************Equipment styling***************** */
@@ -62,16 +130,16 @@ main {
 }
 
 .equipped-equipments, .owned, .available {
-    border: 1px solid;
-    padding: 1rem 0;
+    background-color: var(--primary-color);
+    padding: 10px;
     border-radius: 20px;
     width: 30vw;
+    max-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
 }
-
 
 .owned-block, .unlocking {
     width: 100%;
@@ -81,20 +149,15 @@ main {
 }
 
 .equipped-container, .unlocking-equipments {
-    background-color: var(--equipment-field-color);
+    background-color: var(--tertiary-color);
     align-self: center;
-    border: 1px solid;
     padding: 5px;
-    border-radius: 10px;
     display: flex;
-    width: 90%;
-    height: 200px;
+    width: 100%;
+    height: 150px;
+    font-size: small;
     flex-direction: row;
     overflow-x: auto;
-}
-
-.equipped-container {
-    height: 150px
 }
 
 .unlockButton {
@@ -109,41 +172,15 @@ main {
     align-items: center;
 }
 
-.available-equipments, .owned-equipments {
-    max-height: 50vh;
+.available-equipments, .owned-equipments, .equipped-to {
+    background-color: var(--tertiary-color);
     min-height: 20vh;
-    background-color: var(--equipment-field-color);
-    border-radius: 10px;
-    width: 90%;
-    border: 1px solid;
+    border-radius: 0 0 20px 20px;
+    width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
     overflow-y: auto;
-}
-
-.equipped-to {
-    background-color: var(--equipment-field-color);
-    max-height: 80vh;
-    min-height: 20vh;
-    border-radius: 10px;
-    width: 90%;
-    border: 1px solid;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    overflow-y: auto;
-}
-
-.monster-equipped {
-    border-radius: 20px;
-    border: 1px solid;
-    margin: 5px 0;
-    box-shadow: 2px 2px 5px;
-    width: 95%;
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
 }
 
 /* Equipment display styling */
@@ -152,11 +189,10 @@ main {
 
 .equipment-display {
     display: flex;
-    box-shadow: 2px 2px 5px;
-    width: 90%;
-    margin: 5px;
-    border: 1px solid;
-    border-radius: 10px;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0px;
+    padding: 5px 0px;
 }
 
 .equipmentImage {
@@ -164,15 +200,15 @@ main {
     width: 30%;
     justify-content: center;
     align-items: center;
-    padding: 2px;
+    padding: 5px;
 }
 
 .equipment-text {
-    padding-left: 1rem;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .equipment-text * {
@@ -199,6 +235,7 @@ main {
     position: relative;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     border: none;
     box-shadow: none;
     width: auto;
@@ -209,10 +246,60 @@ main {
 
 .compact .equipmentImage {
     width: auto;
-    height: 60%;
+    height: 70%;
 }
 
 .compact .equipment-text {
     padding: 0;
+    text-wrap: nowrap;
     align-items: center;
+}
+
+/* equipped to styling */
+
+.monster-equipped {
+    background-color: var(--tertiary-color);
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 20px 5px;
+    border: 5px solid var(--secondary-color);
+}
+
+.monster-name {
+    min-width: 66%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    background-color: var(--secondary-color);
+    border-radius: 0px 0px 0px 50px;
+}
+
+.equipped-to .equipped-container {
+    align-self: flex-end;
+    height: 150px;
+    width: 70%;
+    padding: 0 30px;
+}
+
+.monster-svg {
+    width: 40%;
+}
+
+/* *****************Run data styling***************** */
+
+.run-data {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.enter-run-button {
+    width: 40vw;
+    aspect-ratio: 21/9;
 }

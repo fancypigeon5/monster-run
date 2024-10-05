@@ -3,20 +3,26 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h1 class="btn btn-danger" id="enterRun">Enter a run!</h1>
-
-{% for run in runs %}
-<div class="m-2 border rounded">
-    <span>{{ run.distance }} on {{ run.created_on }} for 
-        {% if run.monster %}
-            recovering {{ run.monster }}
-        {% endif %}
-        {% if run.equipment %}
-            unlocking {{ run.equipment.type.name }}
-        {% endif %}    
-        |  </span><span><a href="deleterun/{{ run.id }}">X</a></span>
+<div class="run-data">
+    <h1 class="enter-run-button" id="enterRun">Enter a run!</h1>
+    <div class="runs-container">
+        {% for run in runs %}
+        <div class="m-2 border rounded">
+            <span>{{ run.distance }} on {{ run.created_on }} for 
+                {% if run.monster %}
+                    recovering {{ run.monster }}
+                {% endif %}
+                {% if run.equipment %}
+                    unlocking {{ run.equipment.type.name }}
+                {% endif %}    
+                |  </span><span><a href="deleterun/{{ run.id }}">X</a></span>
+        </div>
+        {% endfor %}
+    </div>
 </div>
-{% endfor %}
+
+
+
 
 
 <div class="modal fade" id="runModal" tabindex="-1"

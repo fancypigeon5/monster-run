@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 {% block styles %}
+    {% for monster in monsters %}
+    .{{ monster.name }} .monster-color {
+        fill: {{ monster.color }}
+    }
+    {% endfor %}
 {% endblock %}
+
+
 
 {% block content %}
 <div class="d-flex equip-container">
@@ -9,15 +16,18 @@
         <h1>Equipped</h1>
         <div class="equipped-to">
             {% for monster in monsters %}
-            <div class="monster-equipped" style="background-color: {{ monster.color }}50;">
-                <h3>{{ monster.name }}</h3>
+            <div class="monster-equipped">
+                <div class="monster-svg monsterImage {{ monster.name }}">
+                    {{ monster.type.type_svg | safe }}
+                </div>
+                <div class="monster-name"><h5>{{ monster.name }}</h5></div>
                 <div class="equipped-container">
                     {% for equipment in equipments %}
                     {% if equipment.monster == monster %}
                     <div class="equipment-display compact equipped" equipment_id="{{ equipment.id }}">
                         <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
                         <div class="equipment-text">
-                            <h5>{{ equipment.type.name }}</h5>
+                            <div><strong>{{ equipment.type.name }}</strong></div>
                         </div>
                     </div>
                     {% endif %}
@@ -37,7 +47,7 @@
                     <div class="equipment-display compact">
                         <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
                         <div class="equipment-text">
-                            <h5>{{ equipment.type.name }}</h5>
+                            <div><strong>{{ equipment.type.name }}</strong></div>
                             <div class="distance"> {{ equipment.progress }}/{{ equipment.type.distance_needed }}</div>
                         </div>
                         {% if equipment.progress >= equipment.type.distance_needed %}
