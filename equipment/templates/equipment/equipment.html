@@ -38,9 +38,8 @@
         </div>
     </div>
     <div class="owned">
-        <h1>Owned</h1>
         <div class="unlocking">
-            <h3>Unlocking</h3>
+            <h1>Unlocking</h1>
             <div class="unlocking-equipments">
                 {% for equipment in equipments %}
                 {% if equipment.unlocked == False %}
@@ -62,7 +61,7 @@
             </div>
         </div>
         <div class="owned-block">
-            <h3>Unlocked</h3>
+            <h1>owned</h1>
             <div class="owned-equipments">
                 {% for equipment in equipments %}
                 {% if equipment.monster == None and equipment.unlocked == True %}

@@ -6,18 +6,25 @@
 <div class="run-data">
     <h1 class="enter-run-button" id="enterRun">Enter a run!</h1>
     <div class="runs-container">
-        {% for run in runs %}
-        <div class="m-2 border rounded">
-            <span>{{ run.distance }} on {{ run.created_on }} for 
-                {% if run.monster %}
+        <div class="entries">
+            {% for run in runs %}
+            <div class="run-entry">
+                <div>
+                    {{ run.distance }} on {{ run.created_on }} 
+                </div>
+                <div>
+                    for 
+                    {% if run.monster %} 
                     recovering {{ run.monster }}
-                {% endif %}
-                {% if run.equipment %}
-                    unlocking {{ run.equipment.type.name }}
-                {% endif %}    
-                |  </span><span><a href="deleterun/{{ run.id }}">X</a></span>
+                    {% endif %}
+                    {% if run.equipment %}
+                        unlocking {{ run.equipment.type.name }}
+                    {% endif %}    
+                </div>
+                <div><a href="deleterun/{{ run.id }}">X</a></div>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </div>
 
