@@ -4,134 +4,95 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row container bg-secondary bg-gradient owned">
-        <div class="row"><h2>Owned equipments:</h2></div>
-        <div class="row">
-            <div class="col container">
-                <div class="row"><h3>Equipped:</h3></div>
-                {% for monster in monsters %}
-                <div class="row container">
-                    <div class="row"><h5>{{ monster.name }}:</h5></div>
-                    <div class="row container">
-                        {% for equipment in equipments %}
-                        {% if equipment.monster == monster %}
-                            <div class="col-6">
-                                <div class="card mb-3 equipmentCard equipped" equipment_id="{{ equipment.id }}">
-                                    <div class="d-flex justify-content-start">
-                                        <div class="equipment equipmentImage">
-                                            <div class="img-fluid rounded-start equipment">{{ equipment.type.equipment_svg | safe }}</div>
-                                        </div>
-                                        <div class="equipmentCardBody">
-                                            <p>{{ equipment.type.name }}</p>
-                                            <p><em>Health:</em> +{{equipment.type.benefit_health}}</p>
-                                            <p><em>Damage:</em> +{{equipment.type.benefit_damage}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endif %}
-                        {% endfor %}
-                    </div>  
-                </div>
-                {% endfor %}
-            </div>
-            <div class="col container">
-                <div class="row"><h3>Not equipped:</h3></div>
-                <div class="row">
-                {% for equipment in equipments %}
-                    {% if equipment.unlocked and not equipment.monster  %}
-                    <div class="col">
-                        <div class="card mb-3 equipmentCard equipable" equipment_id="{{ equipment.id }}">
-                            <div class="d-flex justify-content-start">
-                                <div class="equipment equipmentImage">
-                                    <div class="img-fluid rounded-start equipment">{{ equipment.type.equipment_svg | safe }}</div>
-                                </div>
-                                <div class="equipmentCardBody">
-                                    <p>{{ equipment.type.name }}</p>
-                                    <p><em>Health:</em> +{{equipment.type.benefit_health}}</p>
-                                    <p><em>Damage:</em> +{{equipment.type.benefit_damage}}</p>
-                                </div>
-                            </div>
+<div class="d-flex equip-container">
+    <div class="equipped-equipments">
+        <h1>Equipped</h1>
+        <div class="equipped-to">
+            {% for monster in monsters %}
+            <div class="monster-equipped" style="background-color: {{ monster.color }}50;">
+                <h3>{{ monster.name }}</h3>
+                <div class="equipped-container">
+                    {% for equipment in equipments %}
+                    {% if equipment.monster == monster %}
+                    <div class="equipment-display compact equipped" equipment_id="{{ equipment.id }}">
+                        <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
+                        <div class="equipment-text">
+                            <h5>{{ equipment.type.name }}</h5>
                         </div>
                     </div>
                     {% endif %}
-                {% endfor %}
+                    {% endfor %}
                 </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="owned">
+        <h1>Owned</h1>
+        <div class="unlocking">
+            <h3>Unlocking</h3>
+            <div class="unlocking-equipments">
+                {% for equipment in equipments %}
+                {% if equipment.unlocked == False %}
+                    <div class="equipment-display compact">
+                        <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
+                        <div class="equipment-text">
+                            <h5>{{ equipment.type.name }}</h5>
+                            <div class="distance"> {{ equipment.progress }}/{{ equipment.type.distance_needed }}</div>
+                        </div>
+                        {% if equipment.progress >= equipment.type.distance_needed %}
+                        <div class="unlockButton">
+                            <a href="unlock/{{ equipment.id }}" class="btn
+                            btn-danger p-1">Unlock</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="owned-block">
+            <h3>Unlocked</h3>
+            <div class="owned-equipments">
+                {% for equipment in equipments %}
+                {% if equipment.monster == None and equipment.unlocked == True %}
+                <div class="equipment-display equipable" equipment_id="{{ equipment.id }}">
+                    <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
+                    <div class="equipment-text">
+                        <h5>{{ equipment.type.name }}</h5>
+                        {% if equipment.type.category == 0 %}
+                        <div class="health"> health: +{{ equipment.type.benefit_health }}</div>
+                        {% elif equipment.type.category == 1 %}
+                        <div class="damage"> damage: +{{ equipment.type.benefit_damage }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
-    
-        
-    
-    
-    
-    <!-- <div class="col-6 container border">
-            
-            <div class="row">
-                <div class="col">
-                    <h3>Equipped:</h3>
-                    {% for monster in monsters %}
-                        <h5>{{ monster.name }}:</h5>
-                        {% for equipment in equipments %}
-                            {% if equipment.monster == monster %}
-                            <div class="card mb-3 equipmentCard">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <div class="img-fluid rounded-start equipment">{{ equipment.type.equipment_svg | safe }}</div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="equipmentCardBody">
-                                            <h5 class="card-title">{{ equipment.type.name }}</h5>
-                                            <p class="card-text"><em>Health:</em> +{{equipment.type.benefit_health}}</p>
-                                            <p class="card-text"><em>Damage:</em> +{{equipment.type.benefit_damage}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endif %}
-                        {% endfor %}
-                    {% endfor %}
-                </div>
-                <div class="col">
-                    <h3>Not equipqed:</h3>
-                    <ul>
-                        {% for equipment in equipments %}
-                        {% if equipment.unlocked and not equipment.monster %}
-                        <li class="equipable equipment" equipment_id="{{ equipment.id }}">
-                            {{ equipment.type.equipment_svg | safe }}
-                        </li>
+    <div class="available">
+        <h1>Not owned</h1>
+        <div class="available-equipments">
+            {% for equipment_type in equipment_types %}
+            <a href="{% url 'equipment_create' equipment_type.id %}" >
+                <div class="equipment-display">
+                    <div class="equipmentImage">{{ equipment_type.equipment_svg | safe }}</div>
+                    <div class="equipment-text">
+                        <h5>{{ equipment_type.name }}</h5>
+                        {% if equipment_type.category == 0 %}
+                        <div class="health"> health: +{{ equipment_type.benefit_health }}</div>
+                        {% elif equipment_type.category == 1 %}
+                        <div class="damage"> damage: +{{ equipment_type.benefit_damage }}</div>
                         {% endif %}
-                        {% endfor %}
-                    </ul>
+                        <div class="distance"> distance: {{ equipment_type.distance_needed }}</div>
+                    </div>
                 </div>
-            </div>    
+            </a>
+            {% endfor %}
         </div>
-        <div class="col-3 border">
-            <h2>Unlocking:</h2>
-            <ul>
-                {% for equipment in equipments %}
-                {% if not equipment.unlocked %}
-                <li class="equipment">
-                    {{ equipment.type.equipment_svg | safe }} | status: {{ equipment.progress }}/{{ equipment.type.distance_needed }}
-                    {% if equipment.progress >= equipment.type.distance_needed %}
-                    <a id="umlockButton" href="unlock/{{ equipment.id }}" class="btn
-                        btn-danger">Unlock</a>
-                    {% endif %}
-                </li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="col-3 border">
-            <h2>Not owned equipment:</h2>
-            <ul>
-                {% for equipment_type in equipment_types %}
-                <li class="equipment"><a href="{% url 'equipment_create' equipment_type.id %}" >{{ equipment_type.equipment_svg | safe }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div> -->    
+    </div>
 </div>
 
 

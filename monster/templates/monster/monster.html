@@ -16,24 +16,23 @@
     <div class="card-body">
         <h5 class="card-title">Monster is {{ monster.name }}</h5>
         <h6>Health: {{ monster.health }}</h6>
-        <h6>Damage: {{monster.damage }}</h6>
-        <div class="">
-        {% for equipment in equipped %}
-        {% if equipment.monster.id == monster.id %}
-        <div class="card mb-3 equipmentCard">
-            <div class="d-flex justify-content-start">
-                <div class="equipment equipmentImage">
-                    <div class="img-fluid rounded-start equipment">{{ equipment.type.equipment_svg | safe }}</div>
+        <h6>Damage: {{monster.damage }}</h6>        
+        <div class="equipped-container">
+            {% for equipment in equipped %}
+            {% if equipment.monster.id == monster.id %}
+                <div class="equipment-display compact equipped" equipment_id="{{ equipment.id }}">
+                    <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
+                    <div class="equipment-text">
+                        <h5>{{ equipment.type.name }}</h5>
+                        {% if equipment.type.category == 0 %}
+                        <div class="health"> health: +{{ equipment.type.benefit_health }}</div>
+                        {% elif equipment.type.category == 1 %}
+                        <div class="damage"> damage: +{{ equipment.type.benefit_damage }}</div>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="equipmentCardBody">
-                    <p>{{ equipment.type.name }}</p>
-                    <p><em>Health:</em> +{{equipment.type.benefit_health}}</p>
-                    <p><em>Damage:</em> +{{equipment.type.benefit_damage}}</p>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-        {% endfor %}
+            {% endif %}
+            {% endfor %}
         </div>
     </div>
 </div>
