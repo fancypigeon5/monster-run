@@ -1,7 +1,10 @@
+{% extends "arena/arena.html" %}
+{% load static %}
+
 {% block results %}
-<div class="d-flex position-fixed justify-content-center align-items-center" id="results">
+<div id="results">
     <h1>You Won</h1>
     <h5>your monster gained {{ points }} points</h5>
-    <a href="{% url 'arena' %}" class="btn btn_danger">OK</a>
+    <a href="{% url 'arena' %}" class="btn btn-lg btn-danger">OK</a>
 </div>
 {% endblock %}

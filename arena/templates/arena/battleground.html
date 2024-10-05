@@ -10,53 +10,81 @@
 {% endblock %}
 
 {% block content %}
-<h1>Battleground</h1>
-{% if turn == 'you' %}
-<h2 turn="{{ turn }}" id="turnIndicator">Your turn</h2>
-<h3>click the box to roll your damage</h3>
-<div style="width: 100px; height: 100px;" class="border d-flex justify-content-center align-items-center" id="damageRoll" max_damage="{{ monster.damage }}">
-    <h1 id="rollBox">{{ monster.damage }}</h1>
-</div>
-{% elif turn == 'enemy' %}
-<h2 turn="{{ turn }}" id="turnIndicator">enemy's turn</h2>
-<h3>rolling for damage</h3>
-<div style="width: 100px; height: 100px;" class="border d-flex justify-content-center align-items-center" id="damageRoll" max_damage="{{ monster.damage }}">
-    <h1 id="rollBox">{{ monster.damage }}</h1>
-</div>
-{% endif %}
-<div class="d-flex justify-content-around">
-    <div class="{{ monster.name }}">
-        <h3>{{ monster.name }}</h3>
-        
-        <div >
-            {{ monster.type.type_svg | safe }}
-        </div>
-        {% for equipment in equipped %}
-            {{ equipment.type.equipment_svg | safe }}
-        {% endfor %}
-        <h3>health: {{ monster.health }}</h3>
-        <h3>damage: {{ monster.damage }}</h3>
-    </div>
+<div class="battleground-container">
+    <h1>Battleground</h1>
 
-    <div class="{{ enemy.name }}">
-        <h3>{{ enemy.name }}</h3>
-        
-        {{ enemy.type.type_svg | safe }}
-        {% for equipment in equipments %}
-            {{ equipment.equipment_svg | safe }}
-        {% endfor %}
-        <h3>health: {{ enemy.health }}</h3>
-        <h3>damage: {{ enemy.damage }}</h3>
+    <div class="battleground-monsters">
+        <div class="monster-card {{ monster.name }}">
+            <div class="monsterImage"> {{ monster.type.type_svg | safe }} </div>
+            <div class="monster-card-body">
+                <h4 class="monster-card-title"><strong>{{ monster.name }}</strong></h4>
+                <div class="equipped-container">
+                    {% for equipment in equipped %}
+                    {% if equipment.monster.id == monster.id %}
+                        <div class="equipment-display compact equipped" equipment_id="{{ equipment.id }}">
+                            <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
+                            <div class="equipment-text">
+                                <div><strong>{{ equipment.type.name }}</strong></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="monster-stats">
+                    <h5><strong>Health:</strong> {{ monster.health }}</h5>
+                    <h5><strong>Damage:</strong> {{monster.damage }}</h5>
+                </div>
+            </div>        
+        </div>
+
+        <div class="turn-container">
+            {% if turn == 'you' %}
+            <h2 turn="{{ turn }}" id="turnIndicator">Your turn</h2>
+            <h5>click the box to start rolling</h5>
+            <h5>click again to stop rolling</h5>
+            <div id="damageRoll" max_damage="{{ monster.damage }}">
+                <h1 id="rollBox">{{ monster.damage }}</h1>
+            </div>
+            {% elif turn == 'enemy' %}
+            <h2 turn="{{ turn }}" id="turnIndicator">enemy's turn</h2>
+            <h5>rolling for damage</h5>
+            <div id="damageRoll" max_damage="{{ monster.damage }}">
+                <h1 id="rollBox">{{ monster.damage }}</h1>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="monster-card {{ enemy.name }}">
+            <div class="monsterImage"> {{ enemy.type.type_svg | safe }} </div>
+            <div class="monster-card-body">
+                <h4 class="monster-card-title"><strong>{{ enemy.name }}</strong></h4>
+                <div class="equipped-container">
+                    {% for equipment in equipments %}
+                        <div class="equipment-display compact equipped" equipment_id="{{ equipment.id }}">
+                            <div class="equipmentImage">{{ equipment.equipment_svg | safe }}</div>
+                            <div class="equipment-text">
+                                <div><strong>{{ equipment.name }}</strong></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="monster-stats">
+                    <h5><strong>Health:</strong> {{ enemy.health }}</h5>
+                    <h5><strong>Damage:</strong> {{ enemy.damage }}</h5>
+                </div>
+            </div>        
+        </div>
     </div>
 </div>
-<form action="{% url 'strike' turn %}" method="post" class="d-none position-fixed justify-content-center align-items-center" id="strikeForm">
+
+<form action="{% url 'strike' turn %}" method="post" class="d-none position-fixed" id="strikeForm">
     <input type="hidden" name="equipments" value="{{ equipments }}">
     <input type="hidden" name="monster" value="{{ monster.id }}">
     <input type="hidden" name="enemy" value="{{ enemy.id }}">
     <input type="hidden" name="damage" value="" id="damagePost">
     <h3 id="strikeTitle"></h3>
     {% csrf_token %}
-    <button type="submit" class="btn btn-danger" id="strikeFormButton">Strike</button>
+    <button type="submit" class="btn btn-lg btn-danger" id="strikeFormButton">Strike</button>
 </form>
 {% endblock %}
 

@@ -114,10 +114,12 @@ def won(request, points):
 
 def scoreboard(request):
     monsters = Monster.objects.order_by('-score')
+    equipped = Equipment.objects.exclude(monster=None)
     return render(
         request,
         'arena/scoreboard.html',
         {
             'monsters': monsters,
+            'equipped': equipped
         }
     )

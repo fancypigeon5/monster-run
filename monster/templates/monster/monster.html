@@ -9,14 +9,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="d-flex flex-wrap">
+<div class="monsters-container">
     {% for monster in monsters %}
-    <div class="card m-3 monster-card {{ monster.name }}" style="width: 18rem;">
-        <div class="monsterImage card-img-top p-1 d-flex justify-content-center align-items-center"> {{ monster.type.type_svg | safe }} </div>
-        <div class="card-body">
-            <h5 class="card-title">Monster is {{ monster.name }}</h5>
-            <h6>Health: {{ monster.health }}</h6>
-            <h6>Damage: {{monster.damage }}</h6>        
+    <div class="monster-card {{ monster.name }}">
+        <div class="monsterImage"> {{ monster.type.type_svg | safe }} </div>
+        <div class="monster-card-body">
+            <h4 class="monster-card-title"><strong>{{ monster.name }}</strong></h4>
             <div class="equipped-container">
                 {% for equipment in equipped %}
                 {% if equipment.monster.id == monster.id %}
@@ -24,17 +22,16 @@
                         <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
                         <div class="equipment-text">
                             <div><strong>{{ equipment.type.name }}</strong></div>
-                            {% if equipment.type.category == 0 %}
-                            <div class="health"> health: +{{ equipment.type.benefit_health }}</div>
-                            {% elif equipment.type.category == 1 %}
-                            <div class="damage"> damage: +{{ equipment.type.benefit_damage }}</div>
-                            {% endif %}
                         </div>
                     </div>
                 {% endif %}
                 {% endfor %}
             </div>
-        </div>
+            <div class="monster-stats">
+                <h5><strong>Health:</strong> {{ monster.health }}</h5>
+                <h5><strong>Damage:</strong> {{monster.damage }}</h5>
+            </div>
+        </div>        
     </div>
     {% endfor %}
 </div>

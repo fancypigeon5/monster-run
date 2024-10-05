@@ -2,10 +2,6 @@
 {% load static %}
 {% block styles %}
 
-.monsterImage svg {
-    height: 100px
-}
-
 {% for monster in monsters %}
     .{{ monster.name }} .monster-color {
         fill: {{ monster.color }}
@@ -14,21 +10,35 @@
 {% endblock %}
 
 {% block content %}
-<h1>Battleground</h1>
-
-<ol class="">
-    {% for monster in monsters %}
-    <li class="{{ monster.name }} monsterListing">
-        <h3>{{ monster.name }} with {{ monster.score }} points</h3>
-        <div class="monsterImage">
-            {{ monster.type.type_svg | safe }}
+<div class="leaderboard-container">
+    <h1 class="scoreboard-title">Scoreboard</h1>
+    <div class="leaderboard">
+        {% for monster in monsters %}
+        <div class="monster-card {{ monster.name }}">
+            <h1 class="ranking">{{ forloop.counter }}.  {{ monster.name }}</h1>
+            <div class="monsterImage"> {{ monster.type.type_svg | safe }} </div>
+            <div class="monster-card-body">
+                <h4 class="monster-card-title">score: {{ monster.score }}</h4>
+                <div class="equipped-container">
+                    {% for equipment in equipped %}
+                    {% if equipment.monster.id == monster.id %}
+                        <div class="equipment-display compact equipped" equipment_id="{{ equipment.id }}">
+                            <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
+                            <div class="equipment-text">
+                                <div><strong>{{ equipment.type.name }}</strong></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="monster-stats">
+                    <h5>owner: {{ monster.owner.username }}</h5>
+                </div>
+            </div>        
         </div>
-        {% for equipment in equipped %}
-            {{ equipment.type.equipment_svg | safe }}
         {% endfor %}
-        <h3>Owner: {{ monster.owner.username }}</h3>
-    </li>
-    {% endfor %}
-</ol>
+    </div>
+    
+</div>
 
 {% endblock %}

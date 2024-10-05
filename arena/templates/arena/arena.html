@@ -2,8 +2,10 @@
 {% load static %}
 
 {% block content %}
-<a id="battleButton"><h1>Battle</h1></a>
-<a href="{% url 'scoreboard' %}"><h1>Scoreboard</h1></a>
+<div class="arena">
+    <a id="battleButton" class="arena-button"><h1>Battle</h1></a>
+    <a href="{% url 'scoreboard' %}" class="arena-button"><h1>Scoreboard</h1></a>
+</div>
 
 <div class="modal fade" id="battleModal" tabindex="-1"
   aria-labelledby="battleModalLabel" aria-hidden="true">
