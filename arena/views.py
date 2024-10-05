@@ -57,7 +57,11 @@ def strike(request, turn):
     if request.method == "POST":
         monster = get_object_or_404(Monster, pk=request.POST['monster'], owner=request.user)
         enemy = Monster.all_objects.filter(owner=request.user, pk=request.POST['enemy']).get()
-        equipments = request.POST['equipments']
+        equipment_ids = request.POST['equipments'].split()
+        equipments = []
+        for id in equipment_ids:
+            eq = EquipmentType.objects.filter(pk=int(id)).first()
+            equipments.append(eq)
         equipped = monster.equipped.all()
         damage = int(request.POST['damage'])
         if turn == 'enemy':

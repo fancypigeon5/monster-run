@@ -78,7 +78,9 @@
 </div>
 
 <form action="{% url 'strike' turn %}" method="post" class="d-none position-fixed" id="strikeForm">
-    <input type="hidden" name="equipments" value="{{ equipments }}">
+    
+    <input type="hidden" name="equipments" value="{% for equipment in equipments %}{{ equipment.id }} {% endfor %}">
+    
     <input type="hidden" name="monster" value="{{ monster.id }}">
     <input type="hidden" name="enemy" value="{{ enemy.id }}">
     <input type="hidden" name="damage" value="" id="damagePost">
