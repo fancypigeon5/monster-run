@@ -1,11 +1,13 @@
 from django.shortcuts import render, reverse, get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from monster.models import Monster, MonsterType
 from equipment.models import Equipment, EquipmentType
 import random
 
+@login_required
 def arena(request):
     monsters = Monster.objects.filter(owner=request.user)
     return render(
@@ -16,6 +18,7 @@ def arena(request):
         }
     )
 
+@login_required
 def battle(request):
     if request.method == "POST":
         monster = get_object_or_404(Monster, pk=request.POST['monster'], owner=request.user)
@@ -53,6 +56,7 @@ def battle(request):
         )
     return HttpResponseRedirect(reverse('arena'))
 
+@login_required
 def strike(request, turn):
     if request.method == "POST":
         monster = get_object_or_404(Monster, pk=request.POST['monster'], owner=request.user)
@@ -95,6 +99,7 @@ def strike(request, turn):
         )
     return HttpResponseRedirect(reverse('arena'))
 
+@login_required
 def lost(request):
     monsters = Monster.objects.filter(owner=request.user)
     return render(
@@ -105,6 +110,7 @@ def lost(request):
         }
     )
 
+@login_required
 def won(request, points):
     monsters = Monster.objects.filter(owner=request.user)
     return render(
@@ -116,6 +122,7 @@ def won(request, points):
         }
     )
 
+@login_required
 def scoreboard(request):
     monsters = Monster.objects.order_by('-score')
     equipped = Equipment.objects.exclude(monster=None)

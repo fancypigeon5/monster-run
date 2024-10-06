@@ -1,13 +1,14 @@
 from django.shortcuts import render, reverse, get_object_or_404
 from django.db.models import F
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import RunData
 from .forms import UnlockRunDataForm, RecoverRunDataForm
 from equipment.models import Equipment
 from monster.models import Monster
 
-# Create your views here.
+@login_required
 def run(request):
     runs = RunData.objects.filter(user=request.user).order_by('-created_on')
     unlock_run_form = UnlockRunDataForm()
@@ -24,9 +25,10 @@ def run(request):
         }
     )
 
+@login_required
 def enter_run(request, choice):
     if request.method == "POST":
-        monster = Monster.objects.filter(owner = request.user).exclude(health=F('max_health'))
+        monsters = Monster.objects.filter(owner = request.user).exclude(health=F('max_health'))
         equipment = Equipment.objects.filter(owner = request.user, unlocked=False)
         if choice == "unlock":
             if equipment.first() is None:
@@ -71,6 +73,7 @@ def enter_run(request, choice):
 
     return HttpResponseRedirect(reverse('run_data'))
 
+@login_required
 def delete_run(request, run_data_id):
     run_data = get_object_or_404(RunData, pk=run_data_id)
     if run_data.monster:

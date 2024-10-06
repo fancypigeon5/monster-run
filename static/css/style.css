@@ -498,8 +498,25 @@ main {
     overflow-y: auto;
 }
 
+.monster-ranking {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 100%;
+    padding: 30px 0;
+}
+
+.monster-ranking .monster-card {
+    height: 100%;
+    width: 100%;
+}
+
 .leaderboard .monsterImage {
     height: 40%;
+}
+
+.leaderboard .monster-card-body {
+    padding: 0;
 }
 
 .scoreboard-title {

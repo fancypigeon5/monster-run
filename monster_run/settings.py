@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'cloudinary',
+    'colorfield',
     "monster",
     'equipment',
     'run_data',

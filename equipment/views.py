@@ -1,11 +1,12 @@
 from django.shortcuts import render, reverse, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from .models import Equipment, EquipmentType
 from .forms import EquipForm
 from monster.models import Monster
 
-
+@login_required
 def equipment(request):
     equipments = Equipment.objects.filter(owner=request.user)
     equipment_types = EquipmentType.objects.all()
@@ -23,6 +24,7 @@ def equipment(request):
         }
     )
 
+@login_required
 def equipment_create(request, equipment_type_id):
     equipment_type = get_object_or_404(EquipmentType, id=equipment_type_id)
     new_equipment = Equipment(owner=request.user, type=equipment_type)
@@ -33,6 +35,7 @@ def equipment_create(request, equipment_type_id):
         )
     return HttpResponseRedirect(reverse('equipment'))
 
+@login_required
 def equip_to(request, equipment_id):
     
     if request.method == 'POST':
@@ -53,6 +56,7 @@ def equip_to(request, equipment_id):
 
     return HttpResponseRedirect(reverse('equipment'))
 
+@login_required
 def unequip(request, equipment_id):
     equipment = get_object_or_404(Equipment, pk=equipment_id, owner=request.user)
     equipment.monster = None
@@ -63,6 +67,7 @@ def unequip(request, equipment_id):
         )
     return HttpResponseRedirect(reverse('equipment'))
 
+@login_required
 def unlock(request, equipment_id):
     equipment = get_object_or_404(Equipment, pk=equipment_id, owner=request.user)
     if equipment.unlocked:

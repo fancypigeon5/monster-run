@@ -33,6 +33,7 @@ def monster(request):
         },
     ) 
 
+@login_required
 def create_monster(request):
     monster_form = MonsterForm()
     if request.method == "POST":

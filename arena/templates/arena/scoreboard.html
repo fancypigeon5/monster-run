@@ -14,28 +14,31 @@
     <h1 class="scoreboard-title">Scoreboard</h1>
     <div class="leaderboard">
         {% for monster in monsters %}
-        <div class="monster-card {{ monster.name }}">
+        <div class="monster-ranking">
             <h1 class="ranking">{{ forloop.counter }}.  {{ monster.name }}</h1>
-            <div class="monsterImage"> {{ monster.type.type_svg | safe }} </div>
-            <div class="monster-card-body">
-                <h4 class="monster-card-title">score: {{ monster.score }}</h4>
-                <div class="equipped-container">
-                    {% for equipment in equipped %}
-                    {% if equipment.monster.id == monster.id %}
-                        <div class="equipment-display compact equipped" equipment_id="{{ equipment.id }}">
-                            <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
-                            <div class="equipment-text">
-                                <div><strong>{{ equipment.type.name }}</strong></div>
+            <div class="monster-card {{ monster.name }}">
+                <div class="monsterImage"> {{ monster.type.type_svg | safe }} </div>
+                <div class="monster-card-body">
+                    <h4 class="monster-card-title">score: {{ monster.score }}</h4>
+                    <div class="equipped-container">
+                        {% for equipment in equipped %}
+                        {% if equipment.monster.id == monster.id %}
+                            <div class="equipment-display compact equipped" equipment_id="{{ equipment.id }}">
+                                <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
+                                <div class="equipment-text">
+                                    <div><strong>{{ equipment.type.name }}</strong></div>
+                                </div>
                             </div>
-                        </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="monster-stats">
-                    <h5>owner: {{ monster.owner.username }}</h5>
-                </div>
-            </div>        
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="monster-stats">
+                        <h5>owner: {{ monster.owner.username }}</h5>
+                    </div>
+                </div>        
+            </div>
         </div>
+        
         {% endfor %}
     </div>
     
