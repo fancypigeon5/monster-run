@@ -23,68 +23,42 @@
 
         {% endblock %}
     </style>
-    {% if user.is_authenticated %}
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-            </a>
-            <nav>
-                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="{% url 'home' %}" class=" px-2">Monsters</a></li>
-                    <li><a href="{% url 'create_monster' %}" class=" px-2">Create new monster</a></li>
-                    <li><a href="{% url 'equipment' %}" class=" px-2">Equipment</a></li>
-                    <li><a href="{% url 'run_data' %}" class=" px-2">Run Data</a></li>
-                    <li><a href="{% url 'arena' %}" class=" px-2">Arena</a></li>
-                </ul>
-            </nav>
-            <div class="col-md-3 text-end">
-                <a href="{% url 'account_logout' %}" class="btn btn-outline-primary me-2">Log Out</a>
-            </div>
-        </header>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    {% for message in messages %}
-                    <div class="alert {{ message.tags }} alert-dismissible
-                    fade show" id="msg" role="alert">
-                    {{ message | safe }}
-                    <button type="button" class="btn-close"
-                        data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+        </a>
+        <nav>
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{% url 'home' %}" class=" px-2">Monsters</a></li>
+                <li><a href="{% url 'create_monster' %}" class=" px-2">Create new monster</a></li>
+                <li><a href="{% url 'equipment' %}" class=" px-2">Equipment</a></li>
+                <li><a href="{% url 'run_data' %}" class=" px-2">Run Data</a></li>
+                <li><a href="{% url 'arena' %}" class=" px-2">Arena</a></li>
+            </ul>
+        </nav>
+        <div class="col-md-3 text-end">
+            <a href="{% url 'account_logout' %}" class="btn btn-danger me-2">Log Out</a>
         </div>
+    </header>
 
-        <main>
-            {% block content %}
-            <!-- Content Goes here -->
-            {% endblock %}
-        </main>
-
-    {% else %}
-        <main>
-            <div class="container border rounded p-5 login-register-container">
-                <div class="row mb-2">
-                    <span class="col"></span>
-                    <h2 class="col-auto text-center">You need to be logged in ...</h2>
-                    <span class="col"></span>
-                </div>
-                <div class="row">
-                    <span class="col"></span>
-                    <a href="{% url 'account_login' %}" class="col-auto btn btn-outline-primary btn-lg mx-auto">Log In!</a>
-                    <span class="col"></span>
-                </div>
-                <span class="row align-items-center"><hr class="col m-0"><h3 class="col-auto text-center"> or </h3><hr class="col m-0"></span>
-                <div class="row">
-                    <span class="col"></span>
-                    <a href="{% url 'account_signup' %}" class="col-auto btn btn-primary btn-lg mx-auto">Register!</a>
-                    <span class="col"></span>
-                </div>
+    <div class="container messages-container">
+        <div class="message-block">
+            {% for message in messages %}
+            <div class="alert message-body {{ message.tags }} alert-dismissible
+            fade show" id="msg" role="alert">
+            {{ message | safe }}
+            <button type="button" class="btn-close"
+                data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        </main>
-    {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <main>
+        {% block content %}
+        <!-- Content Goes here -->
+        {% endblock %}
+    </main>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     
