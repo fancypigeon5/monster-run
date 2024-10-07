@@ -238,6 +238,10 @@ input[type='color'] {
     overflow-x: auto;
 }
 
+.unlocking {
+    flex-shrink: 0;
+}
+
 .unlockButton {
     position: absolute;
     top: 0;
