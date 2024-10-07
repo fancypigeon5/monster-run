@@ -23,11 +23,24 @@
 
         {% endblock %}
     </style>
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-        </a>
-        <nav>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a href="{% url 'home' %}" class="nav-item nav-link px-2">Monsters</a>
+                    <a href="{% url 'create_monster' %}" class="nav-item nav-link px-2">Create new monster</a>
+                    <a href="{% url 'equipment' %}" class="nav-item nav-link px-2">Equipment</a>
+                    <a href="{% url 'run_data' %}" class="nav-item nav-link px-2">Run Data</a>
+                    <a href="{% url 'arena' %}" class="nav-item nav-link px-2">Arena</a>
+                    
+                </div>
+            </div>
+            <a href="{% url 'account_logout' %}" class="btn btn-danger me-2">Log Out</a>
+        </nav>
+        <!-- <nav>
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{% url 'home' %}" class=" px-2">Monsters</a></li>
                 <li><a href="{% url 'create_monster' %}" class=" px-2">Create new monster</a></li>
@@ -35,10 +48,7 @@
                 <li><a href="{% url 'run_data' %}" class=" px-2">Run Data</a></li>
                 <li><a href="{% url 'arena' %}" class=" px-2">Arena</a></li>
             </ul>
-        </nav>
-        <div class="col-md-3 text-end">
-            <a href="{% url 'account_logout' %}" class="btn btn-danger me-2">Log Out</a>
-        </div>
+        </nav> -->
     </header>
 
     <div class="container messages-container">
