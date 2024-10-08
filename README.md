@@ -1,131 +1,290 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Monster Run
 
-Welcome USER_NAME,
+[Live website on Heroku](https://monster-run-deaac2a71438.herokuapp.com)
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+![mockup](static\images\mockup.png)
 
-You can safely delete this README.md file or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **June 18, 2024**
+## Strategy
+Monster Run is designed to motivate individuals to start or maintain their running routines. Players can create and battle monsters, earning points by entering their running data to unlock new equipment or recover health points lost during battles. The game features a leaderboard to compare monsters and track points.
 
-## Gitpod Reminders
+The project aims to demonstrate proficiency in the Django framework by showcasing an understanding of database models and delivering a fully functional web application that highlights both front-end and back-end capabilities.
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
 
-`python3 -m http.server`
+### Leading User Stories
+#### As a user...
 
-A blue button should appear to click: _Make Public_,
+- I can Sign up so that I can use the site
+- I can Create a monster so that I can start to develop my monster stats
+- I can Create a new monster so that I have multiple monsters
+- I can Choose an item so that I can start unlocking that item
+- I can Enter running data so that I make progress and unlock items
+- I can unlock equipment if i have met the required goal so that I can equip it to my monster if I want
+- I can Choose more than one equipment so that I can make progress on multiple equipments
+- I can Equip an item to my monster so that My monster gains the items benefits
+- I can delete a run so that the progress it made for unlocking or recovery is undone
+- I can Go to the arena so that I can battle my monster
+- I can go to the scoreboard so that I can see the monster with the highest score
+- I can view the site on different types of devices so that everything looks good
 
-Another blue button should appear to click: _Open Browser_.
+#### As an admin...
 
-To run a backend Python file, type `python3 app.py` if your Python file is named `app.py`, of course.
+- I want to add monster types so users have more options for creation.
+- I want to add equipment types for users to unlock and equip.
 
-A blue button should appear to click: _Make Public_,
+### Primary strategic aims for the application
+- Provide an engaging platform for users to track their running and develop monsters.
+- Ensure a responsive design that adapts seamlessly to different devices.
+- Encourage competition through leaderboards and battles to foster user engagement.
 
-Another blue button should appear to click: _Open Browser_.
+## Scope
+An agile approach will be adopted, keeping features simple and aligned with the user stories.
 
-By Default, Gitpod gives you superuser security privileges. Therefore, you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+### In Scope Features
+- User registration and login.
+- Monster creation interface.
+- Equipment management system.
+- Run data entry and management.
+- Arena for monster battles.
+- Leaderboard to display top monsters.
 
-To log into the Heroku toolbelt CLI:
+### Out of Scope Features (for future releases)
+- Integration with the Strava API for automatic running data collection.
+- Development of a PvP arena for player-versus-player battles.
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+## Structure
+The website is designed with a user-centric approach, ensuring that all features align with the identified user stories. The following elements illustrate the structure of the application:
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you, so do not share it. If you accidentally make it public, you can create a new one with _Regenerate API Key_.
+### Navigation Bar:
+- Located at the top of the page, the navbar allows users to access key sections of the application easily.
+- Features a logout button for quick session termination, promoting user security.
 
-### Connecting your Mongo database
+### User Registration and Login:
+- A simple and intuitive sign-up form allows users to create accounts, facilitating access to the game’s features.
+- Once logged in, users are directed to their personalized dashboard.
 
-- **Connect to Mongo CLI on a IDE**
-- navigate to your MongoDB Clusters Sandbox
-- click **"Connect"** button
-- select **"Connect with the MongoDB shell"**
-- select **"I have the mongo shell installed"**
-- choose **mongosh (2.0 or later)** for : **"Select your mongo shell version"**
-- choose option: **"Run your connection string in your command line"**
-- in the terminal, paste the copied code `mongo "mongodb+srv://<CLUSTER-NAME>.mongodb.net/<DBname>" --apiVersion 1 --username <USERNAME>`
-  - replace all `<angle-bracket>` keys with your own data
-- enter password _(will not echo **\*\*\*\*** on screen)_
+### Monster Creation Interface:
+- Users can create their first monster upon logging in or navigate to the "Create Monster" page if they have no existing monsters.
+- The form for monster creation is straightforward, prompting users to input basic stats and select a type, allowing for the development of unique monsters.
 
-------
+### Multiple Monster Management:
+- Once users have created a monster, they can easily access their "Monsters Page," displaying all owned monsters and their stats.
+- Users can create additional monsters from this page, promoting diversity in gameplay.
 
-## Release History
+### Equipment Management System:
+- On the "Equipment Page," users can view available items, track their unlocking progress, and choose items to unlock.
+- The ability to equip or unequip items to specific monsters is clearly presented, enhancing customization and strategy.
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+### Run Data Entry and Management:
+- Users can navigate to the "Run Data Page" to enter their running data, essential for unlocking new equipment and recovering health points.
+- Each run entry includes a form where users specify whether the data is for equipment unlocking or monster recovery.
+- Users can also delete run entries if incorrect information was entered, automatically reverting any associated progress.
 
-**June 18, 2024,** Add Mongo back into template
+### Arena for Monster Battles:
+- Users can go to the "Arena Page" to battle their monsters against randomly generated enemy monsters.
+- The page provides a clear interface for selecting a monster and initiating battles, ensuring users know how to proceed.
 
-**June 14, 2024,** Temporarily remove Mongo until the key issue is resolved
+### Leaderboard Display:
+- The "Leaderboard Page" showcases the top monsters based on points, allowing users to compare their progress against others.
+- This competitive aspect encourages engagement and motivates users to continue playing.
 
-**May 28 2024:** Fix Mongo and Links installs
+### Responsive Design:
+- The site is fully responsive, ensuring that all elements are accessible and visually appealing on various devices, including smartphones and tablets.
+- The layout adapts seamlessly, maintaining usability across different screen sizes.
 
-**April 26 2024:** Update node version to 16
+By focusing on these structural elements, the application not only fulfills the user stories but also creates an enjoyable and engaging experience for players, fostering a community centered around fitness and gaming.
 
-**September 20 2023:** Update Python version to 3.9.17.
+## Skeleton
+The application prioritizes ease of use, featuring a clean interface that guides users through the process of creating monsters, entering run data, and battling in the arena.
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+Users can navigate quickly, and the aesthetic maintains a fun yet straightforward theme, enhancing the overall gaming experience.
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+## Surface
+I am aiming for a clean, readable interface that enhances user experience.
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+### Colour
+The color palette is chosen to convey an energetic and fun theme that aligns with the game's purpose of motivating users to run and play.
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+### Font
+A legible font has been selected to ensure clarity across the interface, contributing to an enjoyable user experience.
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+## Features
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+### Existing features
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+- #### __Navbar__
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+- At the top of the page we find a nav section that lets players navigate the application and has a log out button.
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+![Navbar big screenshot](static/images/navbar-big.png)
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+- The navbar is responsive and changes into a burger icon on smaller screens.
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+![Navbar small collapsed screenshot](static/images/navbar-small-collapsed.png)
+![Navbar small extended screenshot](static/images/navbar-small-extended.png)
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+- #### __Monster page__
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+- This page is the homepage for users that are logged in.
+- This page displays all the users monsters with their stats and equipped equipments.
 
-------
+![Monsters page](static/images/monsters-page.png)
 
-## FAQ about the uptime script
+- #### __Create monster page__
 
-**Why have you added this script?**
+- Users without any monsters are directed to this page when trying to enter the home page.
+- Users are presented with a simple form where they can create their own monsters.
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+![Monsters page](static/images/create-monster-page.png)
 
-**How will this affect me?**
+- #### __Equipment page__
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
+- On this page users can manage their equipments.
+- Users are able to start unlocking new equipments by clicking on one of the available equipments.
+- Users can track the progress on the equipments they are unlocking.
+- Once enough progress is made users can unlock the equipment.
+- Users can choose to equip/unequip their unlocked equipments to their monsters.
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+![Monsters page](static/images/equipment-page.png)
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+- #### __Run data page__
 
-**So….?**
+- On this page users can see their previously entered runs.
+- Users can delete runs if they entered wrong information.
+- Users can also enter new runs.
+- When entering a new run, users will have to choose if they want to enter the run to recover a damaged monster or to unlock equipment.
+- When a run is deleted its effect is also deleted (equipments can become locked again).
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
+![Monsters page](static/images/run-data-page.png)
 
-**Can I opt out?**
+- #### __Arena page__
 
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
+![Monsters page](static/images/arena-page.png)
 
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
+- ##### __Leaderboard__
+- On this page users can see a leaderboard of the monsters with the most points.
 
-**Anything more?**
+![Monsters page](static/images/leaderboard-page.png)
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+- ##### __Battleground__
+- When a user enters the battleground they have to choose one of their monsters to use in the fight.
+- An enemy monster is randomly generated and has 0, 1 or 2 randomly assigned equipments.
+- the user and enemy take turns atacking, each time it is the users turn, when they click the box in the center it starts rapidly generating random numbers between 0 and their monsters damage points. When they stop by clicking again, that number is the damage of their attack. The enemy (computer) does the same thing on their turn.
+- Once one of the monsters reaches 0 or less health the battle is over. if the user won, they gain points equal to the health points they have left.
 
----
+![Monsters page](static/images/battleground-page.png)
 
-Happy coding!
+### Features left to implement on future releases
+
+- Connecting to the strava api to automaticly collect running data.
+
+- Create a PvP arena where players can battle each other.
+
+## User Stories
+
+- ### As a user:
+- I can Sign up so that I can use the site
+- I can Create a monster so that I can start to develop my monster stats
+- I can Create a new monster so that I have multiple monsters
+- I can Choose an item so that I can start unlocking that item
+- I can Enter running data so that I make progress and unlock items
+- I can unlock equipment if i have met the required goal so that I can equip it to my monster if I want
+- I can Choose more than one equipment so that I can make progress on multiple equipments
+- I can Equip an item to my monster so that My monster gains the items benefits
+- I can delete a run so that the progress it made for unlocking or recovery is undone
+- I can Go to the arena so that I can battle my monster
+- I can go to the scoreboard so that I can see the monster with the highest score
+- I can view the site on different types of devices so that everything looks good
+
+- ### As a site owner/admin:
+- I can add monster types from the admin panel so that users can use it when creating their monster
+- I can Add equipment types so that Users can select equipment to unlock
+
+## Database structure
+
+In order to help navigating the database I created this database model. It shows the different tables in the database and their relation to eachother.
+
+![Database structure](static/images/database-structure.png)
+
+## styling
+
+### Colors
+
+
+### typography
+
+
+## Testing
+
+### Tests
+
+- __All the tests can be found in [this file](readme-assets/testing/testing.md).__
+
+### Validators
+
+- I used the W3 validator for both HTML and CSS
+
+- HTML: As shown in the screenshot below it passed all tests
+![html test](readme-assets/readme-images/HTML-validator.png)
+
+- CSS: As shown in the screenshot below it passed all tests
+![css test](readme-assets/readme-images/CSS-validator.png)
+
+- JS: As shown in the screenshot below it passed all tests
+![js test](readme-assets/readme-images/JS-validator.png)
+
+
+### Performance
+
+- To check the performance of the page we used PageSpeed which tests for both mobile and desktop. We got an acceptable score both on mobile and on desktop.
+![mobile performance](readme-assets/readme-images/performance-mobile.png)
+![desktop performance](readme-assets/readme-images/performance-desktop.png)
+
+### Compatibility
+
+- I tested the site on several different browsers (Chrome, Firefox, Opera and Safari) and did not notice any problems on Different browsers.
+
+### Responsiveness
+
+- I tested the site on a number of different screen sizes ranging from very small screens e.g. iPhone 5 (320px wide) to very large screens e.g. 5K iMac Pro (5120 x 2880 px).
+
+## Deployment
+
+### How the page is deployed
+
+- In the GitHub repository, navigate to the Settings tab, then choose Pages from the left hand menu 
+- From the source section drop-down menu, select the Master Branch
+- Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment
+- Any changes pushed to the master branch will take effect on the live project
+
+### How to clone the repository
+
+- Go to the repository on GitHub 
+- Click the "Code" button to the right of the screen, click HTTPs and copy the link there
+- Open a GitBash terminal and navigate to the directory where you want to locate the clone
+- On the command line, type "git clone" then paste in the copied url and press the Enter key to begin the clone process
+
+## Credits
+
+### Content
+
+- [W3 Schools](https://www.w3schools.com): They prodided a lot of documentation on basic JS concepts whitch helped a lot. [This example](https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp) I used to style the arrows on the number type inputs. 
+
+- [Stackoverflow](https://stackoverflow.com): A few times while experiencing a problem, this site was very useful to find others experiencing simular issues.
+
+- [MDN wbe docs](https://developer.mozilla.org/en-US/): Just like w3 this site helped to understand some core concepts by providing well written documentation.
+
+- [ChatGPT](https://chat.openai.com): Helped me in coming up with the name Homesquare.
+
+- [Font Awesome](https://fontawesome.com): The burger icon for the navigation on mobile.
+
+- [Google Fonts](https://fonts.google.com): The fonts used in the site are taken from Google fonts.
+
+
+### Media
+
+- The favicon was created by myself on inkscape.
+
+- The chess pieces were taken from [wikimedia](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces) and are free to use.
+
+- The logo is custom generated by ChatGPT.
