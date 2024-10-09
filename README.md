@@ -206,19 +206,11 @@ In order to help navigating the database I created this database model. It shows
 
 ![Database structure](static/images/database-structure.png)
 
-## styling
-
-### Colors
-
-
-### typography
-
-
 ## Testing
 
 ### Tests
 
-- __All the tests can be found in [this file](readme-assets/testing/testing.md).__
+- __All the tests can be found in [this file](manual-testing.md).__
 
 ### Validators
 
