@@ -2,7 +2,7 @@
 
 [Live website on Heroku](https://monster-run-deaac2a71438.herokuapp.com)
 
-![mockup](static\images\mockup.png)
+![mockup](images/mockup.png)
 
 ## Strategy
 Monster Run is designed to motivate individuals to start or maintain their running routines. Players can create and battle monsters, earning points by entering their running data to unlock new equipment or recover health points lost during battles. The game features a leaderboard to compare monsters and track points.
@@ -117,26 +117,26 @@ A legible font has been selected to ensure clarity across the interface, contrib
 
 - At the top of the page we find a nav section that lets players navigate the application and has a log out button.
 
-![Navbar big screenshot](static/images/navbar-big.png)
+![Navbar big screenshot](images/navbar-big.png)
 
 - The navbar is responsive and changes into a burger icon on smaller screens.
 
-![Navbar small collapsed screenshot](static/images/navbar-small-collapsed.png)
-![Navbar small extended screenshot](static/images/navbar-small-extended.png)
+![Navbar small collapsed screenshot](images/navbar-small-collapsed.png)
+![Navbar small extended screenshot](images/navbar-small-extended.png)
 
 - #### __Monster page__
 
 - This page is the homepage for users that are logged in.
 - This page displays all the users monsters with their stats and equipped equipments.
 
-![Monsters page](static/images/monsters-page.png)
+![Monsters page](images/monsters-page.png)
 
 - #### __Create monster page__
 
 - Users without any monsters are directed to this page when trying to enter the home page.
 - Users are presented with a simple form where they can create their own monsters.
 
-![Monsters page](static/images/create-monster-page.png)
+![Monsters page](images/create-monster-page.png)
 
 - #### __Equipment page__
 
@@ -146,7 +146,7 @@ A legible font has been selected to ensure clarity across the interface, contrib
 - Once enough progress is made users can unlock the equipment.
 - Users can choose to equip/unequip their unlocked equipments to their monsters.
 
-![Monsters page](static/images/equipment-page.png)
+![Monsters page](images/equipment-page.png)
 
 - #### __Run data page__
 
@@ -156,16 +156,16 @@ A legible font has been selected to ensure clarity across the interface, contrib
 - When entering a new run, users will have to choose if they want to enter the run to recover a damaged monster or to unlock equipment.
 - When a run is deleted its effect is also deleted (equipments can become locked again).
 
-![Monsters page](static/images/run-data-page.png)
+![Monsters page](images/run-data-page.png)
 
 - #### __Arena page__
 
-![Monsters page](static/images/arena-page.png)
+![Monsters page](images/arena-page.png)
 
 - ##### __Leaderboard__
 - On this page users can see a leaderboard of the monsters with the most points.
 
-![Monsters page](static/images/leaderboard-page.png)
+![Monsters page](images/leaderboard-page.png)
 
 - ##### __Battleground__
 - When a user enters the battleground they have to choose one of their monsters to use in the fight.
@@ -173,7 +173,7 @@ A legible font has been selected to ensure clarity across the interface, contrib
 - the user and enemy take turns atacking, each time it is the users turn, when they click the box in the center it starts rapidly generating random numbers between 0 and their monsters damage points. When they stop by clicking again, that number is the damage of their attack. The enemy (computer) does the same thing on their turn.
 - Once one of the monsters reaches 0 or less health the battle is over. if the user won, they gain points equal to the health points they have left.
 
-![Monsters page](static/images/battleground-page.png)
+![Monsters page](images/battleground-page.png)
 
 ### Features left to implement on future releases
 
@@ -205,7 +205,7 @@ A legible font has been selected to ensure clarity across the interface, contrib
 
 In order to help navigating the database I created this database model. It shows the different tables in the database and their relation to eachother.
 
-![Database structure](static/images/database-structure.png)
+![Database structure](images/database-structure.png)
 
 ## Testing
 
