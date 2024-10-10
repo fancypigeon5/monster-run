@@ -7,7 +7,6 @@ const recoverRunForm = document.getElementById('recoverRunForm');
 const runFormChoice = document.getElementById('runFormChoice');
 
 
-
 enterRun.addEventListener('click', () => {
     runFormChoice.classList.remove('d-none');
     unlockRunForm.classList.add('d-none');

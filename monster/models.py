@@ -13,14 +13,18 @@ class MonsterType(models.Model):
     def __str__(self):
         return f"{self.name} | health: {self.base_max_health}, damage: {self.base_damage}"
 
+
 class ExcludeEnemyMonsters(models.Manager):
     def get_queryset(self):
         return super().get_queryset().exclude(name='Enemy')
 
+
 class Monster(models.Model):
     name = models.CharField(max_length=200)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="monsters")
-    type = models.ForeignKey(MonsterType, on_delete=models.CASCADE, related_name="monsters")
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="monsters")
+    type = models.ForeignKey(
+        MonsterType, on_delete=models.CASCADE, related_name="monsters")
     color = ColorField(default='#f60000')
     health = models.IntegerField()
     max_health = models.IntegerField()

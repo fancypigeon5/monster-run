@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 CATEGORIES = ((0, 'Armour'), (1, 'Weapon'))
 
+
 class EquipmentType(models.Model):
     name = models.CharField(max_length=255)
     category = models.IntegerField(choices=CATEGORIES, default=0)
@@ -16,17 +17,21 @@ class EquipmentType(models.Model):
     def __str__(self):
         return f"{self.name} | health: +{self.benefit_health}, damage: +{self.benefit_damage}"
 
+
 class Equipment(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="equipments")
-    type = models.ForeignKey(EquipmentType, on_delete=models.CASCADE, related_name='equipments')
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="equipments")
+    type = models.ForeignKey(
+        EquipmentType, on_delete=models.CASCADE, related_name='equipments')
     unlocked = models.BooleanField(default=False)
     progress = models.IntegerField(default=0)
-    monster = models.ForeignKey(Monster, on_delete=models.SET_NULL, blank=True, null=True, default=None, related_name='equipped')
+    monster = models.ForeignKey(Monster, on_delete=models.SET_NULL,
+                                blank=True, null=True, default=None, related_name='equipped')
     created_on = models.TimeField(auto_now_add=True)
 
     def __str__(self):
         if self.monster:
-            displaystring =  f"{self.owner.username}'s {self.type.name} equipped to {self.monster.name}"
+            displaystring = f"{self.owner.username}'s {self.type.name} equipped to {self.monster.name}"
         else:
             displaystring = f"{self.owner.username}'s {self.type.name} not equipped"
         return displaystring

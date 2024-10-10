@@ -102,7 +102,8 @@ Users can navigate quickly, and the aesthetic maintains a fun yet straightforwar
 I am aiming for a clean, readable interface that enhances user experience.
 
 ### Colour
-The color palette is chosen to convey an energetic and fun theme that aligns with the game's purpose of motivating users to run and play.
+The chosen color palette for the Monster Run game combines calming blues and soft neutrals to create an inviting and immersive atmosphere.
+Overall, the palette harmonizes well to create an engaging environment that balances adventure, friendliness, and a hint of whimsy, enhancing the player’s experience in the Monster Run game.
 
 
 ### Font
@@ -214,16 +215,47 @@ In order to help navigating the database I created this database model. It shows
 
 ### Validators
 
-- I used the W3 validator for both HTML and CSS
+I used the W3 validator for both HTML and CSS and JSHint for the javascript.
 
-- HTML: As shown in the screenshot below it passed all tests
-![html test](readme-assets/readme-images/HTML-validator.png)
+#### HTML:
+##### Monster page:
+the validator found two issues:
+- I used a custom attribute 'equipment_id'.
+- since the images are svg's when having multiple of the same type the ID's in the svg occur multiple times.
 
-- CSS: As shown in the screenshot below it passed all tests
-![css test](readme-assets/readme-images/CSS-validator.png)
+##### Create monster page:
+the validator found one issue:
+- maxlength attribute is not allowed on input type color, this was created by django form.
 
-- JS: As shown in the screenshot below it passed all tests
-![js test](readme-assets/readme-images/JS-validator.png)
+##### Equipment page:
+the validator found Three issues:
+- I used a custom attribute 'equipment_id'.
+- since the images are svg's when having multiple of the same type the ID's in the svg occur multiple times.
+- tr, th, td tags made by django forms
+
+##### Run data page:
+the validator found one issue:
+- because there are two forms (max one is shown at any time) the id for the distance input occurs twice in the html (django forms gives this id).
+
+##### Arena page:
+the validator found no issues.
+
+##### Scoreboard page:
+the validator found two issues:
+- I used a custom attribute 'equipment_id'.
+- since the images are svg's when having multiple of the same type the ID's in the svg occur multiple times.
+
+##### Battleground page:
+the validator found two issues:
+- I used a custom attributes.
+- Since the images are svg's when having multiple of the same type the ID's in the svg occur multiple times.
+
+
+#### CSS:
+The validator found no issues.
+
+#### JS:
+The validator found no issues.
 
 
 ### Performance

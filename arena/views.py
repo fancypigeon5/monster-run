@@ -7,6 +7,7 @@ from monster.models import Monster, MonsterType
 from equipment.models import Equipment, EquipmentType
 import random
 
+
 @login_required
 def arena(request):
     """Display the arena.
@@ -27,6 +28,7 @@ def arena(request):
         }
     )
 
+
 @login_required
 def battle(request):
     """Initiate a battle between the user's monster and an enemy monster.
@@ -39,29 +41,33 @@ def battle(request):
 
     Raises:
         Http404: If the specified monster does not exist or does not belong to the user.
-    
+
     Adds:
         An error message if the battle initiation fails.
     """
 
     if request.method == "POST":
-        monster = get_object_or_404(Monster, pk=request.POST['monster'], owner=request.user)
-        enemy_monsters = Monster.all_objects.filter(owner=request.user, name='Enemy')
+        monster = get_object_or_404(
+            Monster, pk=request.POST['monster'], owner=request.user)
+        enemy_monsters = Monster.all_objects.filter(
+            owner=request.user, name='Enemy')
         for enemy_monster in enemy_monsters:
             enemy_monster.delete()
         monster_type = random.choice(MonsterType.objects.all())
         color = '#' + hex(random.randrange(0, 2**24))[2:]
-        enemy = Monster(name="Enemy", owner=request.user, type=monster_type, color=color, health=monster_type.base_max_health, max_health=monster_type.base_max_health, damage=monster_type.base_damage)
+        enemy = Monster(name="Enemy", owner=request.user, type=monster_type, color=color,
+                        health=monster_type.base_max_health, max_health=monster_type.base_max_health, damage=monster_type.base_damage)
         enemy.save()
         equipments = []
         for category in range(2):
             if random.choice([True, False]):
-                equipment_type = random.choice(EquipmentType.objects.filter(category=category))
+                equipment_type = random.choice(
+                    EquipmentType.objects.filter(category=category))
                 enemy.health += equipment_type.benefit_health
                 enemy.damage += equipment_type.benefit_damage
                 enemy.save()
                 equipments.append(equipment_type)
-        turn = random.choice(['enemy','you'])
+        turn = random.choice(['enemy', 'you'])
         equipped = monster.equipped.all()
         return render(
             request,
@@ -75,10 +81,11 @@ def battle(request):
             }
         )
     messages.add_message(
-            request, messages.ERROR,
-            'something went wrong'
-        )
+        request, messages.ERROR,
+        'something went wrong'
+    )
     return HttpResponseRedirect(reverse('arena'))
+
 
 @login_required
 def strike(request, turn):
@@ -93,14 +100,16 @@ def strike(request, turn):
 
     Raises:
         Http404: If the specified monster or enemy does not exist or does not belong to the user.
-    
+
     Adds:
         An error message if the strike action fails.
     """
 
     if request.method == "POST":
-        monster = get_object_or_404(Monster, pk=request.POST['monster'], owner=request.user)
-        enemy = Monster.all_objects.filter(owner=request.user, pk=request.POST['enemy']).get()
+        monster = get_object_or_404(
+            Monster, pk=request.POST['monster'], owner=request.user)
+        enemy = Monster.all_objects.filter(
+            owner=request.user, pk=request.POST['enemy']).get()
         equipment_ids = request.POST['equipments'].split()
         equipments = []
         for id in equipment_ids:
@@ -134,10 +143,11 @@ def strike(request, turn):
             }
         )
     messages.add_message(
-            request, messages.ERROR,
-            'something went wrong'
-        )
+        request, messages.ERROR,
+        'something went wrong'
+    )
     return HttpResponseRedirect(reverse('arena'))
+
 
 @login_required
 def lost(request):
@@ -160,6 +170,7 @@ def lost(request):
         }
     )
 
+
 @login_required
 def won(request, points):
     """Display the victory screen after the user's monster has won the battle.
@@ -181,6 +192,7 @@ def won(request, points):
             'monsters': monsters,
         }
     )
+
 
 @login_required
 def scoreboard(request):

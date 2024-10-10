@@ -8,6 +8,7 @@ from .forms import UnlockRunDataForm, RecoverRunDataForm
 from equipment.models import Equipment
 from monster.models import Monster
 
+
 @login_required
 def run(request):
     """Display the user's run data and form for adding a new run.
@@ -21,11 +22,14 @@ def run(request):
     """
     runs = RunData.objects.filter(user=request.user).order_by('-created_on')
     unlock_run_form = UnlockRunDataForm()
-    unlock_run_form.fields['equipment'].queryset = Equipment.objects.filter(owner=request.user).exclude(unlocked=True)
+    unlock_run_form.fields['equipment'].queryset = Equipment.objects.filter(
+        owner=request.user).exclude(unlocked=True)
     recover_run_form = RecoverRunDataForm()
-    recover_run_form.fields['monster'].queryset = Monster.objects.filter(owner=request.user).exclude(health=F('max_health'))
+    recover_run_form.fields['monster'].queryset = Monster.objects.filter(
+        owner=request.user).exclude(health=F('max_health'))
     equipments = Equipment.objects.filter(owner=request.user, unlocked=False)
-    monsters = Monster.objects.filter(owner = request.user).exclude(health=F('max_health'))
+    monsters = Monster.objects.filter(
+        owner=request.user).exclude(health=F('max_health'))
     return render(
         request,
         'run_data/run_data.html',
@@ -37,6 +41,7 @@ def run(request):
             'recover_run_form': recover_run_form,
         }
     )
+
 
 @login_required
 def enter_run(request, choice):
@@ -58,8 +63,10 @@ def enter_run(request, choice):
     """
 
     if request.method == "POST":
-        monsters = Monster.objects.filter(owner = request.user).exclude(health=F('max_health'))
-        equipment = Equipment.objects.filter(owner = request.user, unlocked=False)
+        monsters = Monster.objects.filter(
+            owner=request.user).exclude(health=F('max_health'))
+        equipment = Equipment.objects.filter(
+            owner=request.user, unlocked=False)
         if choice == "unlock":
             if equipment.first() is None:
                 messages.add_message(
@@ -102,6 +109,7 @@ def enter_run(request, choice):
                 )
 
     return HttpResponseRedirect(reverse('run_data'))
+
 
 @login_required
 def delete_run(request, run_data_id):

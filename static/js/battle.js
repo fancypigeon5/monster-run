@@ -7,6 +7,7 @@ const damagePost = document.getElementById('damagePost');
 const strikeFormButton = document.getElementById('strikeFormButton');
 const turn = document.getElementById('turnIndicator').getAttribute('turn');
 let damage;
+let randomInterval;
 
 function damageRollInterval() {
     randomInterval = setInterval(() => {
