@@ -9,6 +9,9 @@ const runFormChoice = document.getElementById('runFormChoice');
 
 
 enterRun.addEventListener('click', () => {
+    runFormChoice.classList.remove('d-none');
+    unlockRunForm.classList.add('d-none');
+    recoverRunForm.classList.add('d-none');
     unlockButton.addEventListener('click', () => {
         runFormChoice.classList.add('d-none');
         unlockRunForm.classList.remove('d-none');

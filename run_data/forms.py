@@ -6,9 +6,9 @@ from equipment.models import Equipment
 class UnlockRunDataForm(forms.ModelForm):
     class Meta:
         model = RunData
-        fields = ('distance', 'pace', 'equipment', )
+        fields = ('distance', 'equipment', )
 
 class RecoverRunDataForm(forms.ModelForm):
     class Meta:
         model = RunData
-        fields = ('distance', 'pace', 'monster', )
+        fields = ('distance', 'monster', )

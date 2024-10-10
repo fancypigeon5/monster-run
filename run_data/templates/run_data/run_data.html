@@ -54,27 +54,39 @@
                 </div>
             </div>
             <form class="d-none" id='unlockRunForm' action='enterrun/unlock' method="post">
-                <div class="modal-body">
+                <div class="modal-body" id="unlockRunFormBody">
+                    {% if equipments %}
                     {{ unlock_run_form | crispy }}
                     {% csrf_token %}
+                    {% else %}
+                    <h5>You have no equipments to unlock!</h5>
+                    {% endif %}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                     data-bs-dismiss="modal">Close</button>
+                    {% if equipments %}
                     <button id="unlockRunConfirm" type="submit" class="btn
                     btn-danger">Submit Run</button> 
+                    {% endif %}
                 </div>
             </form>
             <form class="d-none" id='recoverRunForm' action='enterrun/recover' method="post">
                 <div class="modal-body" id="recoverRunFormBody">
+                    {% if monsters %}
                     {{ recover_run_form | crispy }}
                     {% csrf_token %}
+                    {% else %}
+                    <h5>You have no monsters that need healing!</h5>
+                    {% endif %}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                     data-bs-dismiss="modal">Close</button>
+                    {% if monsters %}
                     <button id="recoverRunConfirm" type="submit" class="btn
                     btn-danger">Submit Run</button> 
+                    {% endif %}
                 </div>
             </form>
         </div>

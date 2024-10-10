@@ -4,10 +4,24 @@ from .models import Monster, MonsterType
 from .forms import MonsterForm
 from equipment.models import Equipment
 
-# Create your views here.
 
 @login_required
 def monster(request):
+    """Display a list of monsters owned by the user.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+
+    Returns:
+        monster.html: A template displaying the user's monsters and equipped items.
+
+    Redirects:
+        If the user has no monsters, redirects to the "create_monster" view.
+
+    Updates:
+        Calculates and updates the max health and damage for each monster based on equipped items.
+    """
+    
     monsters = Monster.objects.filter(owner=request.user).all()
     if monsters.first() is None:
         return redirect("create_monster")
@@ -35,6 +49,19 @@ def monster(request):
 
 @login_required
 def create_monster(request):
+    """Create a new monster for the user.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+
+    Returns:
+        create_monster.html: A rendered template for monster creation with the form or 
+            redirects to the home page if the form is successfully submitted.
+
+    Raises:
+        ValidationError: If the submitted form data is invalid.
+    """
+
     monster_form = MonsterForm()
     if request.method == "POST":
             monster_form = MonsterForm(data=request.POST)

@@ -9,6 +9,15 @@ import random
 
 @login_required
 def arena(request):
+    """Display the arena.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+
+    Returns:
+        arena.html: A rendered template displaying two choises, batlle or scoreboard.
+    """
+
     monsters = Monster.objects.filter(owner=request.user)
     return render(
         request,
@@ -20,6 +29,21 @@ def arena(request):
 
 @login_required
 def battle(request):
+    """Initiate a battle between the user's monster and an enemy monster.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+
+    Returns:
+        battleground.html: A rendered template for the battleground displaying the user's monster and the enemy.
+
+    Raises:
+        Http404: If the specified monster does not exist or does not belong to the user.
+    
+    Adds:
+        An error message if the battle initiation fails.
+    """
+
     if request.method == "POST":
         monster = get_object_or_404(Monster, pk=request.POST['monster'], owner=request.user)
         enemy_monsters = Monster.all_objects.filter(owner=request.user, name='Enemy')
@@ -58,6 +82,22 @@ def battle(request):
 
 @login_required
 def strike(request, turn):
+    """Process a strike action during the battle between the user's monster and the enemy.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+        turn: str: Indicates whose turn it is, either 'enemy' or 'you'.
+
+    Returns:
+        battleground.html: A rendered template for the battleground after processing the strike.
+
+    Raises:
+        Http404: If the specified monster or enemy does not exist or does not belong to the user.
+    
+    Adds:
+        An error message if the strike action fails.
+    """
+
     if request.method == "POST":
         monster = get_object_or_404(Monster, pk=request.POST['monster'], owner=request.user)
         enemy = Monster.all_objects.filter(owner=request.user, pk=request.POST['enemy']).get()
@@ -101,6 +141,16 @@ def strike(request, turn):
 
 @login_required
 def lost(request):
+    """Display the loss screen after the user's monster has been defeated.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+
+    Returns:
+        lost.html: A rendered template displaying the loss message.
+
+    """
+
     monsters = Monster.objects.filter(owner=request.user)
     return render(
         request,
@@ -112,6 +162,16 @@ def lost(request):
 
 @login_required
 def won(request, points):
+    """Display the victory screen after the user's monster has won the battle.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+        points: int: The points scored by the user's monster in the battle.
+
+    Returns:
+        won.html: A rendered template displaying the victory message and the points scored.
+    """
+
     monsters = Monster.objects.filter(owner=request.user)
     return render(
         request,
@@ -124,6 +184,14 @@ def won(request, points):
 
 @login_required
 def scoreboard(request):
+    """Display the scoreboard showing monsters ranked by score.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+
+    Returns:
+        scoreboard.html: A rendered template displaying the ranked monsters and their equipped items.
+    """
     monsters = Monster.objects.order_by('-score')
     equipped = Equipment.objects.exclude(monster=None)
     return render(
