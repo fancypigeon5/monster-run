@@ -276,39 +276,163 @@ The validator found no issues.
 
 ### How the page is deployed
 
-- In the GitHub repository, navigate to the Settings tab, then choose Pages from the left hand menu 
-- From the source section drop-down menu, select the Master Branch
-- Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment
-- Any changes pushed to the master branch will take effect on the live project
+1. **Log In to Heroku**
+   - Go to the [Heroku dashboard](https://dashboard.heroku.com/apps) and log in to view your installed apps.
 
-### How to clone the repository
+2. **Create a New App**
+   - Click on **New** and select **Create new app**.
+   - Choose a unique name for your application and select your region.
+   - Click on **Create app**.
 
-- Go to the repository on GitHub 
-- Click the "Code" button to the right of the screen, click HTTPs and copy the link there
-- Open a GitBash terminal and navigate to the directory where you want to locate the clone
-- On the command line, type "git clone" then paste in the copied url and press the Enter key to begin the clone process
+3. **Set Up Database**
+   - After creating your app, navigate to your [database host](https://dbs.ci-dbs.net) (in this case the code institute PostgreSQL).
+   - Set up your database and make sure to get the **Database URL**.
+
+4. **Configure Environment Variables**
+   - Go to the **Settings** tab and click on **Reveal Config Vars**.
+   - Add `DATABASE_URL` to Config Vars with your database url as its value.
+
+5. **Create Environment File**
+   - In your local environment, create a new file named `env.py` in the top-level directory.
+   - Add `env.py` to your gitignore file.
+   - In `env.py`, set your environment variables:
+     ```python
+     import os
+     os.environ["DATABASE_URL"] = "Paste in DATABASE_URL Link"
+     os.environ["SECRET_KEY"] = "Make up your own randomSecretKey"
+     ```
+
+6. **Add Secret Key to Heroku**
+   - In Heroku, go to the **Settings** tab and click on **Reveal Config Vars**.
+   - Add `SECRET_KEY` to Config Vars with the value you previously generated.
+
+7. **Update `settings.py`**
+   - Remove the insecure secret key and replace it with:
+     ```python
+     SECRET_KEY = os.environ.get('SECRET_KEY')
+     ```
+   - Update your database settings to use the `DATABASE_URL`:
+     ```python
+     import dj_database_url
+     DATABASES = {
+         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+     }
+     ```
+   - Add `https://*.herokuapp.com` to CSRF_TRUSTED_ORIGINS and ALLOWED_HOSTS
+
+8. **Run Migrations**
+   - Save all changes and run migrations using:
+     ```bash
+     python manage.py migrate
+     ```
+
+9. **Set Up Static Files with WhiteNoise**
+   - To serve your static files without relying on external services, use the Python package **WhiteNoise**.
+   - **Install and set up the package**:
+     ```bash
+     pip3 install whitenoise~=5.3.0
+     pip3 install whitenoise
+     ```
+   - **Add the package to your `requirements.txt` file**:
+     ```bash
+     pip3 freeze --local > requirements.txt
+     pip3 freeze whitenoise
+     ```
+   - **Wire up WhiteNoise to Django's `MIDDLEWARE` in `settings.py`**:
+     - Note: The WhiteNoise middleware must be placed directly after the Django SecurityMiddleware.
+     ```python
+     MIDDLEWARE = [
+         'django.middleware.security.SecurityMiddleware',
+         'whitenoise.middleware.WhiteNoiseMiddleware',
+         # other middleware...
+     ]
+     ```
+
+10. **Create a Procfile**
+    - In the top-level directory, create a file named `Procfile`.
+    - Add the following line with your project name:
+      ```plaintext
+      web: gunicorn [PROJECT_NAME].wsgi
+      ```
+
+11. **Push Changes to Heroku**
+    - In the terminal, run the following commands to add, commit, and push your changes:
+      ```bash
+      git add .
+      git commit -m "Deploying to Heroku"
+      git push heroku main
+      ```
+
+12. **Deploy Your App**
+    - In Heroku, navigate to the **Deploy** tab and click on **Deploy Branch**.
+    - Once the build process is complete, click on **Open App** to visit your live site.
+
+### How to Clone the Repository
+
+Follow these steps to clone the repository from GitHub:
+
+1. **Access the Repository**
+   - Go to the repository page on GitHub.
+
+2. **Copy the Repository Link**
+   - Click the **"Code"** button located on the right side of the screen.
+   - Select **HTTPS** and copy the provided link.
+
+3. **Open GitBash**
+   - Launch a GitBash terminal on your computer.
+
+4. **Navigate to Your Desired Directory**
+   - Use the terminal to navigate to the directory where you want to place the cloned repository.
+
+5. **Clone the Repository**
+   - In the command line, type:
+     ```bash
+     git clone <paste the copied URL here>
+     ```
+   - Press the **Enter** key to begin the cloning process.
+
+Your repository will now be cloned to your local machine.
 
 ## Credits
 
-### Content
+### Technologies Used
 
-- [W3 Schools](https://www.w3schools.com): They prodided a lot of documentation on basic JS concepts whitch helped a lot. [This example](https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp) I used to style the arrows on the number type inputs. 
+#### Languages Used
+- HTML5
+- CSS3
+- JavaScript
+- Python
 
-- [Stackoverflow](https://stackoverflow.com): A few times while experiencing a problem, this site was very useful to find others experiencing simular issues.
+#### Frameworks and Libraries Used
+- [Bootstrap](https://getbootstrap.com/): Bootstrap CSS Framework used for styling and building responsive web pages.
+- [Django](https://www.djangoproject.com/): The main Python framework used in development.
+- [Django Allauth](https://django-allauth.readthedocs.io/en/latest/index.html): Used for authentication and account registration.
+- [Django Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/): Used to simplify the rendering of Django forms.
+- [dj_database_url](https://pypi.org/project/dj-database-url/): Used to allow database URLs to connect to the Postgres database.
+- [Gunicorn](https://gunicorn.org/): Green Unicorn, used as the web server to run Django on Heroku.
+- [Whitenoise](https://whitenoise.readthedocs.io/en/latest): Provides file serving for Python applications on Heroku.
 
-- [MDN wbe docs](https://developer.mozilla.org/en-US/): Just like w3 this site helped to understand some core concepts by providing well written documentation.
+#### Software and Web Applications Used
+- [Chrome DevTools](https://developer.chrome.com/docs/devtools/): Used to test responsiveness on different screen sizes, debugging, and generating Lighthouse reports to analyze page load.
+- [Git](https://git-scm.com/): Utilized for version control, using the Gitbash terminal to commit changes and push to GitHub.
+- [GitHub](https://github.com/): Used to store the project code after pushing from Git and to create the Kanban board for project management.
+- [Heroku](https://www.heroku.com/): Used for deployment and hosting of the application.
+- [HTML Validator](https://validator.w3.org/): Checks HTML code for validation.
+- [JSHint](https://jshint.com/): Checks JavaScript code for validation.
+- [Lucidchart](https://www.lucidchart.com/pages/): Used to create the database map.
+- [W3 CSS Validator](https://jigsaw.w3.org/css-validator/): Checks CSS code for validation.
+- [Inkscape](https://inkscape.en.softonic.com): Open-source vector drawing software.
 
-- [ChatGPT](https://chat.openai.com): Helped me in coming up with the name Homesquare.
-
-- [Font Awesome](https://fontawesome.com): The burger icon for the navigation on mobile.
-
-- [Google Fonts](https://fonts.google.com): The fonts used in the site are taken from Google fonts.
-
+### Help and Documentation
+- **Brian**: My mentor for this project.
+- [Django documentation](https://docs.djangoproject.com/en/5.1/): Provided extensive help and documentation on specific Django cases.
+- [W3 Schools](https://www.w3schools.com): Offered documentation on basic concepts, which was very helpful.
+- [Stack Overflow](https://stackoverflow.com): A valuable resource for troubleshooting problems and finding similar issues faced by others.
+- [MDN Web Docs](https://developer.mozilla.org/en-US/): Provided well-written documentation to understand core concepts.
+- [ChatGPT](https://chat.openai.com): Assisted in drafting the README file and writing comments for views, with all content reviewed and edited as needed.
+- [Google Fonts](https://fonts.google.com): Fonts used in the site are sourced from Google Fonts.
 
 ### Media
+- The favicon was created by me using Inkscape.
+- All SVGs used were created in Inkscape by my girlfriend, Lisse.
 
-- The favicon was created by myself on inkscape.
-
-- The chess pieces were taken from [wikimedia](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces) and are free to use.
-
-- The logo is custom generated by ChatGPT.
