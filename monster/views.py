@@ -82,3 +82,18 @@ def create_monster(request):
             "monster_form": monster_form,
         },
     )
+
+
+def instructions(request):
+    """Show the instructions.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+
+    Returns:
+        create_monster.html: A rendered template with the game instructions.
+    """
+    return render(
+        request,
+        "monster/instructions.html",
+    )

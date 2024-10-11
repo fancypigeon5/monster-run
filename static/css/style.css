@@ -378,6 +378,15 @@ input[type='color'] {
     padding: 0;
 }
 
+.no-equipment {
+    align-self: center;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 100%;
+    background-color: rgba(54, 54, 54, 0.164);
+}
+
 .monster-svg {
     width: 40%;
     flex-shrink: 1;
@@ -563,6 +572,12 @@ input[type='color'] {
     align-items: center;
 }
 
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
 #rollBox {
     width: 100px;
     height: 100px;
@@ -604,6 +619,51 @@ input[type='color'] {
     padding: 50px 100px;
     transform: translate(-50%, -50%);
     z-index: 10;
+}
+
+/* *****************Instructions styling***************** */
+
+.instructions-container {
+    display: flex;
+    position: fixed;
+    gap: 10px;
+    min-width: 300px;
+    max-width: 70vw;
+    height: fit-content;
+    max-height: 75vh;
+    background-color: var(--primary-color);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0px 10px 10px;
+    top: 50%;
+    left: 50%;
+    border-radius: 20px;
+    padding: 50px;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.instructions-content {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--border-color);
+    border-radius: 0 0 20px 20px;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 1;
+    overflow-y: auto;
+}
+
+.instructions-content p {
+    width: 100%;
+    padding: 0 10px;
+    text-wrap: wrap;
+}
+
+.instructions-container h2 {
+    align-self: center;
+    margin: 20px 0;
 }
 
 /* *****************Login/Error styling***************** */

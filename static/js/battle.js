@@ -1,6 +1,6 @@
 const damageRoll = document.getElementById('damageRoll');
 const rollBox = document.getElementById('rollBox');
-const maxDamage = damageRoll.getAttribute('max_damage');
+const maxDamage = damageRoll.dataset.maxDamage;
 const strikeTitle = document.getElementById('strikeTitle');
 const strikeForm = document.getElementById('strikeForm');
 const damagePost = document.getElementById('damagePost');
@@ -13,7 +13,7 @@ function damageRollInterval() {
     randomInterval = setInterval(() => {
         damage = Math.floor(Math.random()*maxDamage);
         rollBox.innerText = damage;
-        rollBox.setAttribute('current_damage', damage);
+        rollBox.dataset.currentDamage(damage);
     }, 50);
     
 }
@@ -42,5 +42,5 @@ if (turn == 'you') {
     damageRoll.addEventListener('click', damageRollHandler, {once: true});
 } else if (turn == 'enemy') {
     damageRollInterval();
-    setInterval(stopEnemyRoll, 1500)
+    setTimeout(stopEnemyRoll, 1500)
 }

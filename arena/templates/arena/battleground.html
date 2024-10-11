@@ -42,16 +42,17 @@
             <h2 turn="{{ turn }}" id="turnIndicator">Your turn</h2>
             <h5>click the box to start rolling</h5>
             <h5>click again to stop rolling</h5>
-            <div id="damageRoll" max_damage="{{ monster.damage }}">
+            <div id="damageRoll" data-max-damage="{{ monster.damage }}">
                 <h1 id="rollBox">{{ monster.damage }}</h1>
             </div>
             {% elif turn == 'enemy' %}
             <h2 turn="{{ turn }}" id="turnIndicator">enemy's turn</h2>
             <h5>rolling for damage</h5>
-            <div id="damageRoll" max_damage="{{ monster.damage }}">
+            <div id="damageRoll" data-max-damage="{{ monster.damage }}">
                 <h1 id="rollBox">{{ monster.damage }}</h1>
             </div>
             {% endif %}
+            <a href="{% url 'arena' %}" class="btn btn-lg btn-danger">Give up!</a>
         </div>
 
         <div class="monster-card {{ enemy.name }}">
@@ -60,7 +61,7 @@
                 <h4 class="monster-card-title"><strong>{{ enemy.name }}</strong></h4>
                 <div class="equipped-container">
                     {% for equipment in equipments %}
-                        <div class="equipment-display compact equipped" equipment_id="{{ equipment.id }}">
+                        <div class="equipment-display compact equipped" data-equipment-id="{{ equipment.id }}">
                             <div class="equipmentImage">{{ equipment.equipment_svg | safe }}</div>
                             <div class="equipment-text">
                                 <div><strong>{{ equipment.name }}</strong></div>
@@ -86,7 +87,11 @@
     <input type="hidden" name="damage" value="" id="damagePost">
     <h3 id="strikeTitle"></h3>
     {% csrf_token %}
-    <button type="submit" class="btn btn-lg btn-danger" id="strikeFormButton">Strike</button>
+    <div class="button-container">
+        <button type="submit" class="btn btn-lg btn-danger" id="strikeFormButton">Strike</button>
+        <a href="{% url 'arena' %}" class="btn btn-lg btn-danger">Give up!</a>
+    </div>
+
 </form>
 {% endblock %}
 

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block styles %}
+{% for monster in monsters %}
+.{{ monster.name }} .monster-color {
+    fill: {{ monster.color }}
+}
+{% endfor %}
+{% endblock %}
+
+{% block content %}
+<div class="instructions-container">
+    <h1>Instructions</h1>
+    <div class="instructions-content">
+        <h2>Creating monsters</h2>
+        <p>
+            Start the game by creating a monster.
+        </p>
+        <h2>Monster Page</h2>
+        <p>
+            On the monster page you will see a list of all the monsters you own, displayed with their stats and equipped equipment (if htey have any).
+        </p>
+        <h2>Equipment Page</h2>
+        <p>
+            On the equipment page you can manage your equipments.
+            Click on any not owned equipments, they will then appear in the unlocking section.
+            After having made enough progress by entering running data you will see a button appear to unlock them.
+            After unlocking them they appear in the owned section.
+            When clicking on them now a prompt appears asking to select the monster to equip it to.
+            After equipping it they appear next to the monster they were equipped to (each monster can have 1 weapon and one armour).
+            Clicking again will Unequip them and move them back to owned.
+        </p>
+        <h2>Run data</h2>
+        <p>
+            Here you can enter your runs.
+            When entering a run, choose whether you want to use it to heal a monster or to unlock equipment.
+            If a run was entered wrong, you can delete it (this will also delete the benefits for healing or unlocking this run made).
+        </p>
+        <h2>Arena</h2>
+        <p>
+            Here you can fight monsters to gain points.
+            Or you can access the Scoreboard to see the monsters with the most points.
+        </p>
+    </div>
+
+</div>
+{% endblock %}

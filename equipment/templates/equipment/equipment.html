@@ -24,7 +24,7 @@
                 <div class="equipped-container">
                     {% for equipment in equipments %}
                     {% if equipment.monster == monster %}
-                    <div class="equipment-display compact equipped" equipment_id="{{ equipment.id }}">
+                    <div class="equipment-display compact equipped" data-equipment-id="{{ equipment.id }}">
                         <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
                         <div class="equipment-text">
                             <div><strong>{{ equipment.type.name }}</strong></div>
@@ -32,6 +32,10 @@
                     </div>
                     {% endif %}
                     {% endfor %}
+                    {% if not monster.equipped.all %}
+                    <div class="no-equipment"></div>
+                    <div class="no-equipment"></div>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}

@@ -9,7 +9,7 @@ const equipFormBody = document.getElementById('equipFormBody');
 
 for (let equipment of equipable) {
     equipment.addEventListener("click", (e) => {
-      let equipmentId = e.currentTarget.getAttribute("equipment_id");
+      let equipmentId = e.currentTarget.dataset.equipmentId;
       equipForm.setAttribute('action', `equip/${equipmentId}`);
       equipFormBody.classList.remove('d-none');
       equipModalLabel.innerText = 'Equip Item?';
@@ -20,7 +20,7 @@ for (let equipment of equipable) {
 
 for (let equipment of equipped) {
     equipment.addEventListener("click", (e) => {
-        let equipmentId = e.currentTarget.getAttribute('equipment_id');
+        let equipmentId = e.currentTarget.dataset.equipmentId;
         equipForm.setAttribute('action', `unequip/${equipmentId}`);
         equipModalLabel.innerText = 'Unequip Item?';
         equipFormBody.classList.add('d-none');
