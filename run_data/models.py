@@ -5,6 +5,12 @@ from equipment.models import Equipment
 
 
 class RunData(models.Model):
+    """
+    Model representing the data of a run.
+    Methods:
+        __str__(): Returns a string representation of the run data.
+    """
+
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="runs")
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE,

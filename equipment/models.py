@@ -6,6 +6,12 @@ CATEGORIES = ((0, 'Armour'), (1, 'Weapon'))
 
 
 class EquipmentType(models.Model):
+    """
+    Model representing different types of equipment in the game.
+    Methods:
+        __str__(): Returns a string representation of the equipment, including its name, health benefit, and damage benefit.
+    """
+
     name = models.CharField(max_length=255)
     category = models.IntegerField(choices=CATEGORIES, default=0)
     benefit_health = models.IntegerField(default=0)
@@ -19,6 +25,11 @@ class EquipmentType(models.Model):
 
 
 class Equipment(models.Model):
+    """
+    Equipment model representing an item that can be owned by a user and optionally equipped to a monster.
+    Methods:
+        __str__: Returns a string representation of the equipment, indicating the owner and whether it is equipped to a monster.
+    """
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="equipments")
     type = models.ForeignKey(

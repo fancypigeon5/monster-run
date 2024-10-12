@@ -2,6 +2,8 @@
 
 [Live website on Heroku](https://monster-run-deaac2a71438.herokuapp.com)
 
+[Github project board](https://github.com/users/fancypigeon5/projects/2/views/1)
+
 ![mockup](images/mockup.png)
 
 ## Strategy
@@ -220,18 +222,16 @@ I used the W3 validator for both HTML and CSS and JSHint for the javascript.
 #### HTML:
 ##### Monster page:
 the validator found two issues:
-- I used a custom attribute 'equipment_id'.
 - since the images are svg's when having multiple of the same type the ID's in the svg occur multiple times.
 
 ##### Create monster page:
 the validator found one issue:
-- maxlength attribute is not allowed on input type color, this was created by django form.
+- maxlength attribute is not allowed on input type color, this was created by the django form.
 
 ##### Equipment page:
 the validator found Three issues:
-- I used a custom attribute 'equipment_id'.
 - since the images are svg's when having multiple of the same type the ID's in the svg occur multiple times.
-- tr, th, td tags made by django forms
+- tr, th, td tags made by django forms require a table element (This is a Django problem).
 
 ##### Run data page:
 the validator found one issue:
@@ -242,12 +242,10 @@ the validator found no issues.
 
 ##### Scoreboard page:
 the validator found two issues:
-- I used a custom attribute 'equipment_id'.
 - since the images are svg's when having multiple of the same type the ID's in the svg occur multiple times.
 
 ##### Battleground page:
 the validator found two issues:
-- I used a custom attributes.
 - Since the images are svg's when having multiple of the same type the ID's in the svg occur multiple times.
 
 
@@ -256,13 +254,6 @@ The validator found no issues.
 
 #### JS:
 The validator found no issues.
-
-
-### Performance
-
-- To check the performance of the page we used PageSpeed which tests for both mobile and desktop. We got an acceptable score both on mobile and on desktop.
-![mobile performance](readme-assets/readme-images/performance-mobile.png)
-![desktop performance](readme-assets/readme-images/performance-desktop.png)
 
 ### Compatibility
 
@@ -416,6 +407,7 @@ Your repository will now be cloned to your local machine.
 - [Chrome DevTools](https://developer.chrome.com/docs/devtools/): Used to test responsiveness on different screen sizes, debugging, and generating Lighthouse reports to analyze page load.
 - [Git](https://git-scm.com/): Utilized for version control, using the Gitbash terminal to commit changes and push to GitHub.
 - [GitHub](https://github.com/): Used to store the project code after pushing from Git and to create the Kanban board for project management.
+- [websitemockupgenerator](https://websitemockupgenerator.com): Used to generate a mockup.
 - [Heroku](https://www.heroku.com/): Used for deployment and hosting of the application.
 - [HTML Validator](https://validator.w3.org/): Checks HTML code for validation.
 - [JSHint](https://jshint.com/): Checks JavaScript code for validation.
@@ -433,6 +425,5 @@ Your repository will now be cloned to your local machine.
 - [Google Fonts](https://fonts.google.com): Fonts used in the site are sourced from Google Fonts.
 
 ### Media
-- The favicon was created by me using Inkscape.
-- All SVGs used were created in Inkscape by my girlfriend, Lisse.
+- All SVGs used were created in Inkscape by my girlfriend, Lisse Goris.
 
