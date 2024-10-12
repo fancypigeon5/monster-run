@@ -33,6 +33,10 @@
 
 /* *****************Basic styling***************** */
 
+* {
+    font-family: "Ubuntu", sans-serif;
+}
+
 body {
     max-width: 1920px;
     margin-left: auto;

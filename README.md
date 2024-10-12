@@ -109,7 +109,7 @@ Overall, the palette harmonizes well to create an engaging environment that bala
 
 
 ### Font
-A legible font has been selected to ensure clarity across the interface, contributing to an enjoyable user experience.
+The font Ubuntu (Google Fonts), with a fallback of sans-serif, has been chosen to ensure clarity and readability across the interface. Ubuntu's modern and clean design enhances the overall user experience, making the text easy to read on various devices and screen sizes. The sans-serif fallback ensures that if Ubuntu is unavailable, the text will still maintain a clean and legible appearance.
 
 ## Features
 
