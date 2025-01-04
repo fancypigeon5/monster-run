@@ -9,7 +9,7 @@ const equipFormBody = document.getElementById('equipFormBody');
 
 for (let equipment of equipable) {
     equipment.addEventListener("click", (e) => {
-      let equipmentId = e.currentTarget.dataset.equipmentId;
+      let equipmentId = e.currentTarget.getAttribute('data-equipment-id');
       equipForm.setAttribute('action', `equip/${equipmentId}`);
       equipFormBody.classList.remove('d-none');
       equipModalLabel.innerText = 'Equip Item?';

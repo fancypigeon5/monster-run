@@ -69,7 +69,7 @@
             <div class="owned-equipments">
                 {% for equipment in equipments %}
                 {% if equipment.monster == None and equipment.unlocked == True %}
-                <div class="equipment-display equipable" equipment_id="{{ equipment.id }}">
+                <div class="equipment-display equipable" data-equipment-id="{{ equipment.id }}">
                     <div class="equipmentImage">{{ equipment.type.equipment_svg | safe }}</div>
                     <div class="equipment-text">
                         <h5>{{ equipment.type.name }}</h5>
