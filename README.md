@@ -183,25 +183,39 @@ The font Ubuntu (Google Fonts), with a fallback of sans-serif, has been chosen t
 
 - Create a PvP arena where players can battle each other.
 
-## User Stories
+## Epics and User Stories
 
-- ### As a user:
-- I can Sign up so that I can use the site
-- I can Create a monster so that I can start to develop my monster stats
-- I can Create a new monster so that I have multiple monsters
-- I can Choose an item so that I can start unlocking that item
-- I can Enter running data so that I make progress and unlock items
-- I can unlock equipment if i have met the required goal so that I can equip it to my monster if I want
-- I can Choose more than one equipment so that I can make progress on multiple equipments
-- I can Equip an item to my monster so that My monster gains the items benefits
-- I can delete a run so that the progress it made for unlocking or recovery is undone
-- I can Go to the arena so that I can battle my monster
-- I can go to the scoreboard so that I can see the monster with the highest score
-- I can view the site on different types of devices so that everything looks good
+### Epic 1: User Account Management
+- **User Stories:**
+  - As a user, I can Sign up so that I can use the site
 
-- ### As a site owner/admin:
-- I can add monster types from the admin panel so that users can use it when creating their monster
-- I can Add equipment types so that Users can select equipment to unlock
+### Epic 2: Monster Creation and Management
+- **User Stories:**
+  - As a user, I can Create a monster so that I can start to develop my monster stats
+  - As a user, I can Create a new monster so that I have multiple monsters
+  - As a user, I can Choose an item so that I can start unlocking that item
+  - As a user, I can Enter running data so that I make progress and unlock items
+  - As a user, I can unlock equipment if I have met the required goal so that I can equip it to my monster if I want
+  - As a user, I can Choose more than one equipment so that I can make progress on multiple equipments
+  - As a user, I can Equip an item to my monster so that My monster gains the items benefits
+  - As a user, I can delete a run so that the progress it made for unlocking or recovery is undone
+
+### Epic 3: Monster Interaction and Progression
+- **User Stories:**
+  - As a user, I can Go to the arena so that I can battle my monster
+  - As a user, I can go to the scoreboard so that I can see the monster with the highest score
+
+### Epic 4: Device Compatibility
+- **User Stories:**
+  - As a user, I can view the site on different types of devices so that everything looks good
+
+### Epic 5: Admin Management
+- **User Stories:**
+  - As a site owner/admin, I can add monster types from the admin panel so that users can use it when creating their monster
+  - As a site owner/admin, I can Add equipment types so that users can select equipment to unlock
+  - As a site owner/admin, I can create new equipment types so that they can be added to the list of available equipment
+  - As a site owner/admin, I can edit existing equipment types so that I can update their properties or attributes
+  - As a site owner/admin, I can delete equipment types so that I can remove outdated or unnecessary equipment from the system
 
 ## Database structure
 

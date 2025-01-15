@@ -2,8 +2,9 @@ from django.shortcuts import render, reverse, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from .models import Equipment, EquipmentType
-from .forms import EquipForm
+from .forms import EquipForm, EquipmentTypeForm
 from monster.models import Monster
 
 
@@ -167,3 +168,112 @@ def unlock(request, equipment_id):
             'New equipment unlocked'
         )
     return HttpResponseRedirect(reverse('equipment'))
+
+@staff_member_required
+def add_equipment_type(request):
+    """Create a new equipment type.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+
+    Returns:
+        Redirect: A redirect response to the equipment page after creating the equipment type.
+
+    Adds:
+        A success message indicating that the equipment type has been created.
+    """
+    equipment_type_form = EquipmentTypeForm()
+    if request.method == "POST":
+        equipment_type_form = EquipmentTypeForm(data=request.POST)
+        if equipment_type_form.is_valid():
+            new_equipment = equipment_type_form.save(commit=False)
+            new_equipment.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'New equipment type created'
+            )
+            return HttpResponseRedirect(reverse('equipment'))
+    return render(
+        request,
+        "equipment/new-equipment-type.html",
+        {
+            "equipment_type_form": equipment_type_form,
+        },
+    )
+
+@staff_member_required
+def edit_or_delete_type(request):
+    """Display all equipment types.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+
+    Returns:
+        edit-equipment-type.html: A rendered template displaying all equipment types.
+    """
+    equipment_types = EquipmentType.objects.all()
+    return render(
+        request,
+        "equipment/edit-or-delete-type.html",
+        {
+            "equipment_types": equipment_types,
+        },
+    )
+    
+
+@staff_member_required
+def edit_equipment_type(request, equipment_type_id):
+    """Edit an equipment type.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+
+    Returns:
+        Redirect: A redirect response to the equipment page after editing the equipment type.
+
+    Adds:
+        A success message indicating that the equipment type has been edited.
+    """
+
+    equipment_type = get_object_or_404(EquipmentType, id=equipment_type_id)
+    equipment_type_form = EquipmentTypeForm(instance=equipment_type)
+    if request.method == "POST":
+        equipment_type_form = EquipmentTypeForm(data=request.POST, instance=equipment_type)
+        if equipment_type_form.is_valid():
+            equipment_type = equipment_type_form.save(commit=False)
+            equipment_type.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Equipment type edited'
+            )
+            return HttpResponseRedirect(reverse('equipment'))
+    return render(
+        request,
+        "equipment/edit-equipment-type.html",
+        {
+            "equipment_type_form": equipment_type_form,
+        },
+    )
+
+@staff_member_required
+def delete_equipment_type(request, equipment_type_id):
+    """Delete an equipment type.
+
+    Args:
+        request: HttpRequest: The HTTP request object.
+
+    Returns:
+        Redirect: A redirect response to the equipment page after deleting the equipment type.
+
+    Adds:
+        A success message indicating that the equipment type has been deleted.
+    """
+
+    equipment_type = get_object_or_404(EquipmentType, id=equipment_type_id)
+    equipment_type.delete()
+    messages.add_message(
+        request, messages.SUCCESS,
+        'Equipment type deleted'
+    )
+    return HttpResponseRedirect(reverse('equipment'))    
+    
